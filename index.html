@@ -1,0 +1,1820 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Closr — Tu Vendedor Experto Impulsado por IA</title>
+<meta name="description" content="Recupera ventas perdidas automáticamente. Tu vendedor experto impulsado por IA responde a cada lead, hace seguimiento automático y convierte más conversaciones en ventas.">
+<meta property="og:title" content="Closr — Recupera ventas perdidas automáticamente">
+<meta property="og:description" content="Tu vendedor experto impulsado por IA trabaja 24/7 dentro de WhatsApp.">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --black: #0F172A;
+    --violet: #8B5CF6;
+    --violet-light: #A78BFA;
+    --violet-dark: #6D28D9;
+    --green: #7BFF00;
+    --white: #FFFFFF;
+    --gray: #B0BDD0;
+    --gray-dark: #1E293B;
+    --gray-mid: #334155;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: #000000;
+    color: var(--white);
+    overflow-x: hidden;
+    line-height: 1.6;
+  }
+
+  h1, h2, h3, h4, h5 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 700;
+    line-height: 1.15;
+  }
+
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: var(--black); }
+  ::-webkit-scrollbar-thumb { background: var(--violet-dark); border-radius: 3px; }
+
+  .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+
+  .orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(120px);
+    pointer-events: none;
+    z-index: 0;
+  }
+  .orb-violet { background: rgba(139,92,246,0.22); }
+  .orb-sm { background: rgba(139,92,246,0.12); }
+
+  /* BUTTONS */
+  .btn-primary {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: var(--violet); color: var(--white);
+    font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 1rem;
+    padding: 14px 28px; border-radius: 12px; border: none;
+    cursor: pointer; transition: all 200ms ease; text-decoration: none;
+    position: relative; overflow: hidden;
+  }
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(139,92,246,0.5); background: #7C3AED; }
+
+  .btn-secondary {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: transparent; color: var(--white);
+    font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 1rem;
+    padding: 13px 28px; border-radius: 12px; border: 1.5px solid rgba(255,255,255,0.18);
+    cursor: pointer; transition: all 200ms ease; text-decoration: none;
+  }
+  .btn-secondary:hover { border-color: var(--violet); background: rgba(139,92,246,0.1); transform: translateY(-2px); }
+
+  .glass {
+    background: rgba(255,255,255,0.07);
+    border: 1px solid rgba(255,255,255,0.13);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-radius: 20px;
+  }
+
+  .badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(139,92,246,0.12); border: 1px solid rgba(139,92,246,0.3);
+    color: var(--violet-light); font-family: 'Space Grotesk', sans-serif;
+    font-size: 0.75rem; font-weight: 600; letter-spacing: 0.06em;
+    text-transform: uppercase; padding: 6px 14px; border-radius: 100px;
+  }
+  .badge-dot {
+    width: 6px; height: 6px; border-radius: 50%; background: var(--green);
+    animation: pdot 2s infinite;
+  }
+  @keyframes pdot { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.5;transform:scale(.8)} }
+
+  section { position: relative; overflow: hidden; z-index: 1; }
+  footer  { position: relative; z-index: 1; }
+
+  /* Soft fade at top and bottom of every section so cuts dissolve into the black bg */
+  section::before,
+  section::after {
+    content: ''; position: absolute; left: 0; right: 0;
+    height: 120px; pointer-events: none; z-index: 10;
+  }
+  section::before { top: 0;    background: linear-gradient(to bottom, #000000 0%, transparent 100%); }
+  section::after  { bottom: 0; background: linear-gradient(to top,    #000000 0%, transparent 100%); }
+
+  /* SECTION TYPOGRAPHY */
+  .section-label {
+    font-size: 0.75rem; font-weight: 600; letter-spacing: 0.1em;
+    text-transform: uppercase; color: var(--violet-light); margin-bottom: 16px;
+  }
+  .section-title {
+    font-size: clamp(2rem,4vw,3rem); letter-spacing: -0.025em; margin-bottom: 20px;
+    background: linear-gradient(135deg,#fff 0%,rgba(255,255,255,0.72) 100%);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+  }
+  .section-sub { font-size: 1.05rem; color: var(--gray); max-width: 580px; line-height: 1.75; }
+  .section-header { text-align: center; margin-bottom: 64px; }
+  .section-header .section-sub { margin: 0 auto; }
+
+  /* ============ NAVBAR ============ */
+  nav {
+    position: fixed; top: 14px; left: 50%; transform: translateX(-50%);
+    width: calc(100% - 48px); max-width: 1200px; z-index: 1000;
+    background: rgba(10,10,15,0.88); backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px); border: 1px solid rgba(255,255,255,0.13);
+    border-radius: 16px; padding: 14px 24px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+
+  .nav-logo {
+    font-family: 'Space Grotesk', sans-serif; font-size: 1.65rem; font-weight: 700;
+    color: var(--white); text-decoration: none; letter-spacing: -0.04em;
+    text-shadow: 0 0 28px rgba(139,92,246,0.25);
+  }
+  .nav-logo span { color: var(--violet); text-shadow: 0 0 16px rgba(139,92,246,0.7); }
+
+  .nav-links { display: flex; align-items: center; gap: 28px; list-style: none; }
+  .nav-links a { color: var(--gray); text-decoration: none; font-size: 0.875rem; font-weight: 500; transition: color 200ms; }
+  .nav-links a:hover { color: var(--white); }
+
+  .nav-cta {
+    background: var(--violet); color: var(--white);
+    font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 0.875rem;
+    padding: 10px 20px; border-radius: 10px; border: none; cursor: pointer;
+    text-decoration: none; transition: all 200ms;
+  }
+  .nav-cta:hover { background: var(--violet-dark); transform: translateY(-1px); }
+
+  .nav-mobile-btn { display: none; background: none; border: none; cursor: pointer; color: var(--white); padding: 4px; }
+
+  /* ============ HERO ============ */
+  #hero { min-height: 100vh; display: flex; align-items: center; padding: 140px 0 80px; }
+
+  .hero-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
+
+  .hero-title {
+    font-size: clamp(2.4rem,5vw,3.8rem); letter-spacing: -0.03em; margin-bottom: 24px;
+    background: linear-gradient(135deg,#fff 0%,rgba(255,255,255,0.78) 100%);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+  }
+  .hero-title em {
+    font-style: normal;
+    background: linear-gradient(135deg,var(--violet) 0%,var(--violet-light) 100%);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+  }
+
+  .hero-sub { font-size: 1.1rem; color: var(--gray); line-height: 1.75; margin-bottom: 36px; max-width: 480px; }
+  .hero-eyebrow { margin-bottom: 24px; }
+  .hero-actions { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; margin-bottom: 40px; }
+
+  .hero-sp {
+    display: flex; align-items: center; gap: 12px;
+    font-size: 0.875rem; color: var(--gray);
+  }
+  .hero-avatars { display: flex; }
+  .hero-av {
+    width: 30px; height: 30px; border-radius: 50%; border: 2px solid var(--black);
+    margin-right: -9px; background: linear-gradient(135deg,var(--violet),var(--violet-dark));
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.6rem; font-weight: 700; color: white;
+  }
+  .hero-sp strong { color: var(--white); }
+
+  /* WHATSAPP PHONE */
+  .hero-visual { position: relative; display: flex; justify-content: center; align-items: center; }
+
+  .wa-phone {
+    width: 270px; background: #111B21; border-radius: 30px;
+    padding: 20px 16px; position: relative; z-index: 2;
+    box-shadow: 0 40px 90px rgba(0,0,0,0.6), 0 0 0 1px rgba(255,255,255,0.06), 0 0 50px rgba(139,92,246,0.18);
+  }
+  .wa-header {
+    display: flex; align-items: center; gap: 10px;
+    padding-bottom: 12px; border-bottom: 1px solid rgba(255,255,255,0.06); margin-bottom: 14px;
+  }
+  .wa-av {
+    width: 34px; height: 34px; border-radius: 50%;
+    background: linear-gradient(135deg,#A78BFA,#6D28D9);
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0; overflow: hidden; padding: 2px;
+  }
+  .wa-av svg { width: 100%; height: 100%; }
+  .wa-name { font-size: 0.82rem; font-weight: 600; color: #E9EDEF; }
+  .wa-status { font-size: 0.65rem; color: var(--green); }
+  .wa-sdot { display: inline-block; width: 5px; height: 5px; border-radius: 50%; background: var(--green); margin-right: 3px; }
+
+  .wa-msgs { display: flex; flex-direction: column; gap: 7px; }
+  .wa-msg {
+    max-width: 82%; padding: 8px 11px; border-radius: 12px;
+    font-size: 0.77rem; line-height: 1.4;
+    opacity: 0; transform: translateY(6px); transition: all 350ms ease;
+  }
+  .wa-msg.show { opacity: 1; transform: translateY(0); }
+  .wa-msg.in { background: #202C33; color: #E9EDEF; align-self: flex-start; border-bottom-left-radius: 4px; }
+  .wa-msg.out { background: rgba(139,92,246,0.22); border: 1px solid rgba(139,92,246,0.3); color: #E9EDEF; align-self: flex-end; border-bottom-right-radius: 4px; }
+  .wa-time { font-size: 0.62rem; color: rgba(255,255,255,0.3); margin-top: 3px; text-align: right; }
+
+  .wa-typing {
+    display: flex; align-items: center; gap: 4px;
+    padding: 9px 12px; background: #202C33; border-radius: 12px; border-bottom-left-radius: 4px;
+    align-self: flex-start; width: fit-content; opacity: 0; transition: opacity 300ms;
+  }
+  .wa-typing.show { opacity: 1; }
+  .wa-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--gray); animation: typing 1.2s infinite; }
+  .wa-dot:nth-child(2){animation-delay:.2s} .wa-dot:nth-child(3){animation-delay:.4s}
+  @keyframes typing { 0%,80%,100%{transform:scale(.8);opacity:.5} 40%{transform:scale(1);opacity:1} }
+
+  .float-badge {
+    position: absolute; border-radius: 12px; padding: 10px 14px;
+    background: #1a2540;
+    border: 1px solid rgba(123,255,0,0.3); z-index: 3;
+    overflow: hidden; cursor: default;
+    transition: border-color 250ms, box-shadow 250ms;
+    will-change: transform; backface-visibility: hidden; transform: translateZ(0);
+  }
+  .float-badge:hover { border-color: rgba(123,255,0,0.7); box-shadow: 0 0 18px rgba(123,255,0,0.15); }
+  .float-badge2 {
+    position: absolute; border-radius: 12px; padding: 10px 14px;
+    background: #1a2540;
+    border: 1px solid rgba(139,92,246,0.35); z-index: 3;
+    overflow: hidden; cursor: default;
+    transition: border-color 250ms, box-shadow 250ms;
+    will-change: transform; backface-visibility: hidden; transform: translateZ(0);
+  }
+  .float-badge2:hover { border-color: rgba(139,92,246,0.8); box-shadow: 0 0 18px rgba(139,92,246,0.2); }
+  .float-badge::before, .float-badge2::before {
+    content:''; position:absolute; inset:0; border-radius:inherit; pointer-events:none;
+    background: radial-gradient(180px circle at var(--glow-x,50%) var(--glow-y,50%),
+      rgba(139,92,246,0.35), rgba(139,92,246,0.08) 55%, transparent 75%);
+    opacity:0; transition:opacity 250ms;
+  }
+  .float-badge:hover::before, .float-badge2:hover::before { opacity:1; }
+  .float-badge .val { font-size: 1.2rem; font-weight: 700; color: var(--green); font-family:'Space Grotesk',sans-serif; }
+  .float-badge2 .val { font-size: 1.2rem; font-weight: 700; color: var(--violet-light); font-family:'Space Grotesk',sans-serif; }
+  .float-badge .lbl, .float-badge2 .lbl { font-size: 0.65rem; color: var(--gray); }
+
+  /* ============ PROBLEM ============ */
+  #problem { padding: 120px 0; }
+
+  .problem-grid { display: grid; grid-template-columns: repeat(auto-fit,minmax(280px,1fr)); gap: 18px; }
+
+  .problem-card {
+    padding: 28px 26px 24px; border-radius: 18px;
+    background: rgba(255,255,255,0.055); border: 1px solid rgba(255,255,255,0.12);
+    transition: all 300ms ease; position: relative; overflow: hidden;
+  }
+  /* stat badge top-right */
+  .p-stat {
+    position: absolute; top: 18px; right: 18px;
+    font-size: 0.68rem; font-weight: 700; font-family: 'Space Grotesk', sans-serif;
+    color: #F87171; background: rgba(239,68,68,0.1); border: 1px solid rgba(239,68,68,0.2);
+    border-radius: 8px; padding: 3px 8px; letter-spacing: 0.03em;
+  }
+  .p-stat.warn { color: #FBBF24; background: rgba(251,191,36,0.1); border-color: rgba(251,191,36,0.2); }
+  /* Top accent line via ::after so ::before stays free for spotlight */
+  .problem-card::after {
+    content:''; position:absolute; top:0;left:0;right:0; height:1px;
+    background:linear-gradient(90deg,transparent,rgba(139,92,246,0.5),transparent);
+    opacity:0; transition:opacity 280ms; pointer-events:none;
+  }
+  .problem-card:hover { border-color:rgba(139,92,246,0.28); transform:translateY(-4px); }
+  .problem-card:hover::after { opacity:1; }
+
+  .p-icon {
+    width: 46px; height: 46px; border-radius: 13px;
+    background: rgba(239,68,68,0.1); border: 1px solid rgba(239,68,68,0.22);
+    display:flex; align-items:center; justify-content:center; margin-bottom:16px; color:#F87171;
+    box-shadow: 0 0 18px rgba(239,68,68,0.12);
+    transition: all 280ms;
+  }
+  .problem-card:hover .p-icon { transform: scale(1.08); box-shadow: 0 0 26px rgba(239,68,68,0.22); }
+  .problem-card h3 { font-size: 0.97rem; margin-bottom: 8px; font-weight: 600; }
+  .problem-card p  { font-size: 0.83rem; color: var(--gray); line-height: 1.68; }
+  /* divider line at card bottom */
+  .problem-card .p-bottom {
+    display: flex; align-items: center; gap: 6px;
+    margin-top: 16px; padding-top: 14px;
+    border-top: 1px solid rgba(255,255,255,0.07);
+    font-size: 0.7rem; color: rgba(255,255,255,0.3); font-family: 'Space Grotesk', sans-serif;
+  }
+  .problem-card .p-bottom-dot { width:5px; height:5px; border-radius:50%; background:#F87171; flex-shrink:0; }
+  .problem-card .p-bottom-dot.warn { background:#FBBF24; }
+
+  /* ============ SOLUTION ============ */
+  #solution { padding: 120px 0; background: linear-gradient(180deg,transparent 0%,rgba(139,92,246,0.04) 50%,transparent 100%); }
+
+  .solution-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+
+  .sol-items { display: flex; flex-direction: column; gap: 16px; margin-top: 36px; }
+  .sol-item {
+    display:flex; align-items:flex-start; gap:14px; padding:18px;
+    border-radius:14px; background:rgba(255,255,255,0.055); border:1px solid rgba(255,255,255,0.12); transition:all 250ms;
+  }
+  .sol-item:hover { background:rgba(139,92,246,0.06); border-color:rgba(139,92,246,0.2); }
+  .sol-icon {
+    width:38px; height:38px; border-radius:10px;
+    background:rgba(139,92,246,0.14); border:1px solid rgba(139,92,246,0.24);
+    display:flex; align-items:center; justify-content:center; flex-shrink:0; color:var(--violet-light);
+  }
+  .sol-item h4 { font-size:0.88rem; margin-bottom:3px; }
+  .sol-item p { font-size:0.79rem; color:var(--gray); line-height:1.55; }
+
+  /* PLUM CHARACTER */
+  .plum-wrap { display:flex; flex-direction:column; align-items:center; gap:20px; }
+
+  /* Outer wrapper — float driven by JS rAF, zero CSS animation */
+  .plum-float-wrapper {
+    will-change: transform;
+    backface-visibility: hidden;
+    transform: translate3d(0,0,0);
+  }
+
+  /* Character itself has NO animation, NO filter */
+  .plum-character {
+    position:relative; width:220px; height:276px;
+    cursor: default;
+  }
+
+  /* Glow lives OUTSIDE the float wrapper — filter on animated subtree causes jitter */
+  .plum-glow {
+    width:140px; height:24px;
+    background: rgba(139,92,246,0.4);
+    border-radius:50%; filter:blur(20px);
+    pointer-events:none;
+    margin-top:-8px;
+    flex-shrink:0;
+  }
+
+  .plum-character svg { width:100%; height:100%; overflow:visible; }
+
+  .plum-name-tag {
+    display:flex; flex-direction:column; align-items:center; gap:3px;
+  }
+  .plum-tag-label { font-size:0.65rem; color:var(--violet-light); font-weight:600; letter-spacing:.1em; text-transform:uppercase; }
+  .plum-tag-name {
+    font-size:1.5rem; font-weight:700; font-family:'Space Grotesk',sans-serif;
+    background:linear-gradient(135deg,var(--violet-light),#fff);
+    -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;
+  }
+
+  .ai-stats { display:grid; grid-template-columns:1fr 1fr 1fr; gap:10px; width:100%; }
+  .ai-stat {
+    padding:14px 10px; border-radius:12px;
+    background:rgba(255,255,255,0.025); border:1px solid rgba(255,255,255,0.07); text-align:center;
+  }
+  .ai-stat .v { font-size:1.1rem; font-weight:700; font-family:'Space Grotesk',sans-serif; color:var(--violet-light); }
+  .ai-stat .l { font-size:0.62rem; color:var(--gray); margin-top:2px; }
+
+  /* ============ DEMO ============ */
+  #demo { padding: 120px 0; }
+
+  .demo-wrap { display:grid; grid-template-columns:1fr 1fr; gap:60px; align-items:center; }
+  .demo-phone {
+    width:300px; margin:0 auto; background:#111B21; border-radius:30px;
+    padding:22px 16px; box-shadow:0 40px 90px rgba(0,0,0,0.5),0 0 50px rgba(139,92,246,0.14);
+  }
+
+  .demo-steps { display:flex; flex-direction:column; gap:16px; }
+  .demo-step {
+    display:flex; gap:14px; padding:18px; border-radius:14px;
+    border:1px solid rgba(255,255,255,0.12); background:rgba(255,255,255,0.055); transition:all 280ms;
+    position:relative; overflow:hidden;
+  }
+  .demo-step.active { border-color:rgba(139,92,246,0.4); background:rgba(139,92,246,0.08); }
+  .dsn {
+    width:30px; height:30px; border-radius:50%;
+    background:rgba(139,92,246,0.14); border:1px solid rgba(139,92,246,0.28);
+    display:flex; align-items:center; justify-content:center;
+    font-size:0.75rem; font-weight:700; color:var(--violet-light);
+    flex-shrink:0; font-family:'Space Grotesk',sans-serif;
+  }
+  .demo-step.active .dsn { background:var(--violet); border-color:var(--violet); color:white; }
+  .demo-step h4 { font-size:0.9rem; margin-bottom:4px; }
+  .demo-step p { font-size:0.78rem; color:var(--gray); line-height:1.55; }
+  .demo-result {
+    margin-top:8px; padding:10px 14px; border-radius:9px;
+    background:rgba(123,255,0,0.07); border:1px solid rgba(123,255,0,0.2);
+    font-size:0.76rem; color:var(--green); font-weight:600;
+  }
+
+  /* ============ FEATURES ============ */
+  #features { padding: 120px 0; background: linear-gradient(180deg,transparent 0%,rgba(139,92,246,0.04) 50%,transparent 100%); }
+
+  .features-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:18px; margin-top:64px; }
+  .feature-card {
+    padding:30px 26px; border-radius:20px;
+    background:rgba(255,255,255,0.055); border:1px solid rgba(255,255,255,0.12);
+    transition:border-color 280ms, transform 280ms, box-shadow 280ms;
+    position:relative; overflow:hidden;
+    --glow-x: 50%; --glow-y: 50%;
+  }
+  .feature-card::before,
+  .problem-card::before,
+  .step-card::before,
+  .testi-card::before,
+  .metric-card::before,
+  .demo-step::before,
+  .sol-item::before {
+    content:''; position:absolute; inset:0; border-radius:inherit; pointer-events:none;
+    background: radial-gradient(320px circle at var(--glow-x,50%) var(--glow-y,50%), rgba(139,92,246,0.26), rgba(139,92,246,0.06) 55%, transparent 75%);
+    opacity:0; transition:opacity 250ms;
+  }
+  .feature-card:hover::before,
+  .problem-card:hover::before,
+  .step-card:hover::before,
+  .testi-card:hover::before,
+  .metric-card:hover::before,
+  .demo-step:hover::before,
+  .sol-item:hover::before { opacity:1; }
+  .feature-card:hover { border-color:rgba(139,92,246,0.3); transform:translateY(-5px); box-shadow:0 20px 50px rgba(0,0,0,0.35); }
+  .f-icon {
+    width:50px; height:50px; border-radius:13px;
+    background:rgba(139,92,246,0.11); border:1px solid rgba(139,92,246,0.2);
+    display:flex; align-items:center; justify-content:center;
+    margin-bottom:18px; color:var(--violet-light); transition:all 280ms;
+  }
+  .feature-card:hover .f-icon { background:rgba(139,92,246,0.2); transform:scale(1.06); }
+  .feature-card h3 { font-size:1.05rem; margin-bottom:10px; }
+  .feature-card p { font-size:0.84rem; color:var(--gray); line-height:1.65; }
+
+  /* ============ METRICS ============ */
+  #metrics { padding: 120px 0; }
+
+  .metrics-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:22px; margin-top:64px; }
+  .metric-card {
+    padding:38px 30px; border-radius:20px; text-align:center;
+    background:rgba(255,255,255,0.055); border:1px solid rgba(255,255,255,0.12); position:relative; overflow:hidden;
+  }
+  .metric-card::before {
+    content:''; position:absolute; top:0;left:0;right:0; height:2px;
+    background:linear-gradient(90deg,transparent,var(--green),transparent);
+  }
+  .metric-val {
+    font-size:3.2rem; font-weight:700; font-family:'Space Grotesk',sans-serif;
+    color:var(--green); line-height:1; margin-bottom:12px;
+    display:flex; align-items:baseline; justify-content:center; gap:2px;
+    font-variant-numeric: tabular-nums;
+  }
+  .count-up { display:inline-block; min-width:2ch; text-align:right; }
+  .metric-val .pfx { font-size:1.8rem; }
+  .metric-val .sfx { font-size:1.4rem; }
+  .metric-lbl { font-size:1rem; color:var(--white); font-weight:600; font-family:'Space Grotesk',sans-serif; margin-bottom:8px; }
+  .metric-desc { font-size:0.8rem; color:var(--gray); line-height:1.55; }
+
+  /* ============ HOW IT WORKS ============ */
+  #how { padding: 120px 0; background: linear-gradient(180deg,transparent 0%,rgba(139,92,246,0.04) 50%,transparent 100%); }
+
+  .steps-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:28px; margin-top:64px; position:relative; }
+  .steps-grid::before {
+    content:''; position:absolute; top:42px; left:calc(16.67%+20px); right:calc(16.67%+20px);
+    height:1px; background:linear-gradient(90deg,var(--violet),rgba(139,92,246,0.1),var(--violet)); z-index:0;
+  }
+  .step-card {
+    padding:34px 26px; border-radius:20px; text-align:center;
+    background:rgba(255,255,255,0.055); border:1px solid rgba(255,255,255,0.12); transition:all 280ms;
+  }
+  .step-card:hover { border-color:rgba(139,92,246,0.3); transform:translateY(-4px); }
+  .step-num {
+    width:54px; height:54px; border-radius:50%;
+    background:rgba(139,92,246,0.14); border:2px solid var(--violet);
+    display:flex; align-items:center; justify-content:center;
+    font-size:1.2rem; font-weight:700; font-family:'Space Grotesk',sans-serif;
+    color:var(--violet-light); margin:0 auto 22px; position:relative; z-index:1;
+    box-shadow:0 0 20px rgba(139,92,246,0.28);
+  }
+  .step-card h3 { font-size:1.05rem; margin-bottom:10px; }
+  .step-card p { font-size:0.84rem; color:var(--gray); line-height:1.65; }
+
+  /* ============ TESTIMONIALS ============ */
+  #testimonials { padding: 120px 0; }
+
+  .testi-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:18px; margin-top:64px; }
+  .testi-card {
+    padding:30px 26px; border-radius:20px;
+    background:rgba(255,255,255,0.055); border:1px solid rgba(255,255,255,0.12); transition:all 280ms; position:relative;
+  }
+  .testi-card:hover { border-color:rgba(139,92,246,0.2); transform:translateY(-4px); }
+  .testi-metric {
+    position:absolute; top:22px; right:22px;
+    background:rgba(123,255,0,0.07); border:1px solid rgba(123,255,0,0.2);
+    border-radius:8px; padding:5px 9px; font-size:0.72rem; color:var(--green);
+    font-weight:700; font-family:'Space Grotesk',sans-serif;
+  }
+  .testi-stars { display:flex; gap:3px; margin-bottom:14px; color:#FBBF24; }
+  .testi-quote { font-size:0.9rem; color:rgba(255,255,255,0.83); line-height:1.72; margin-bottom:22px; font-style:italic; }
+  .testi-author { display:flex; align-items:center; gap:11px; }
+  .testi-av {
+    width:38px; height:38px; border-radius:50%;
+    background:linear-gradient(135deg,var(--violet),var(--violet-dark));
+    display:flex; align-items:center; justify-content:center;
+    font-weight:700; font-size:0.82rem; color:white; flex-shrink:0;
+  }
+  .testi-name { font-size:0.88rem; font-weight:600; }
+  .testi-role { font-size:0.72rem; color:var(--gray); }
+
+  /* ============ FAQ ============ */
+  #faq { padding: 120px 0; background: linear-gradient(180deg,transparent 0%,rgba(139,92,246,0.03) 50%,transparent 100%); }
+
+  .faq-list { max-width:780px; margin:64px auto 0; display:flex; flex-direction:column; gap:10px; }
+  .faq-item {
+    border-radius:14px; background:rgba(255,255,255,0.055); border:1px solid rgba(255,255,255,0.12);
+    overflow:hidden; transition:border-color 200ms;
+  }
+  .faq-item:hover { border-color:rgba(139,92,246,0.2); }
+  .faq-item.open { border-color:rgba(139,92,246,0.3); }
+  .faq-q {
+    width:100%; display:flex; align-items:center; justify-content:space-between;
+    padding:18px 22px; background:none; border:none; cursor:pointer; color:var(--white);
+    font-family:'Space Grotesk',sans-serif; font-size:0.93rem; font-weight:600; text-align:left; gap:14px; transition:color 200ms;
+  }
+  .faq-q:hover { color:var(--violet-light); }
+  .faq-ic {
+    width:26px; height:26px; border-radius:50%;
+    background:rgba(139,92,246,0.1); border:1px solid rgba(139,92,246,0.2);
+    display:flex; align-items:center; justify-content:center; flex-shrink:0; transition:all 280ms; color:var(--violet-light);
+  }
+  .faq-item.open .faq-ic { background:var(--violet); border-color:var(--violet); transform:rotate(45deg); }
+  .faq-a { max-height:0; overflow:hidden; transition:max-height 380ms ease; }
+  .faq-a-inner { padding:0 22px 18px; font-size:0.85rem; color:var(--gray); line-height:1.72; }
+  .faq-item.open .faq-a { max-height:300px; }
+
+  /* ============ FINAL CTA ============ */
+  #cta-final { padding: 120px 0; }
+
+  .cta-inner { text-align:center; max-width:680px; margin:0 auto; }
+  .cta-inner .section-title { font-size:clamp(2.4rem,5vw,3.4rem); margin-bottom:16px; }
+  .cta-inner .section-sub { margin:0 auto 48px; }
+
+  /* ============ WAITLIST FORM ============ */
+  #waitlist { padding: 0 0 120px; }
+
+  .form-wrap {
+    max-width:660px; margin:0 auto;
+    background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.14); border-radius:24px; padding:40px;
+  }
+
+  .sp-bar {
+    display:flex; align-items:center; justify-content:center; gap:10px;
+    margin-bottom:22px; font-size:0.8rem; color:var(--gray);
+  }
+  .sp-avs { display:flex; }
+  .sp-av {
+    width:22px; height:22px; border-radius:50%; border:1.5px solid var(--black);
+    margin-right:-7px; background:linear-gradient(135deg,var(--violet),var(--violet-dark));
+    display:flex; align-items:center; justify-content:center; font-size:0.52rem; font-weight:700; color:white;
+  }
+  .sp-bar strong { color:var(--white); }
+
+  .form-title { font-family:'Space Grotesk',sans-serif; font-size:1.2rem; font-weight:700; text-align:center; margin-bottom:6px; }
+  .form-sub { font-size:0.83rem; color:var(--gray); text-align:center; margin-bottom:26px; }
+
+  .form-grid { display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-bottom:14px; }
+  .form-full { grid-column:1/-1; }
+  .form-group { display:flex; flex-direction:column; gap:5px; }
+  .form-lbl { font-size:0.76rem; font-weight:600; color:rgba(255,255,255,0.68); font-family:'Space Grotesk',sans-serif; }
+
+  .form-input, .form-select {
+    background:rgba(255,255,255,0.045); border:1px solid rgba(255,255,255,0.1);
+    border-radius:10px; padding:11px 14px; color:var(--white);
+    font-family:'DM Sans',sans-serif; font-size:0.88rem; outline:none; transition:all 200ms; width:100%; appearance:none;
+  }
+  .form-input::placeholder { color:rgba(255,255,255,0.28); }
+  .form-input:focus,.form-select:focus { border-color:var(--violet); background:rgba(139,92,246,0.07); box-shadow:0 0 0 3px rgba(139,92,246,0.14); }
+  .form-input.err { border-color:#F87171; }
+  .form-select {
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='11' height='11' viewBox='0 0 24 24' fill='none' stroke='%2394A3B8' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+    background-repeat:no-repeat; background-position:right 13px center; padding-right:34px; cursor:pointer;
+  }
+  .form-select option { background:#1E293B; color:var(--white); }
+
+  .form-submit {
+    width:100%; padding:15px; background:var(--violet); color:white; border:none; border-radius:12px;
+    font-family:'Space Grotesk',sans-serif; font-size:0.975rem; font-weight:700; cursor:pointer; transition:all 200ms; margin-top:6px;
+  }
+  .form-submit:hover { background:var(--violet-dark); transform:translateY(-2px); box-shadow:0 8px 28px rgba(139,92,246,0.4); }
+  .form-submit:disabled { opacity:0.65; cursor:not-allowed; transform:none; }
+  .form-privacy { text-align:center; font-size:0.72rem; color:rgba(255,255,255,0.3); margin-top:10px; }
+
+  .phone-wrap { display:flex; gap:8px; }
+  .phone-code { width:130px; flex-shrink:0; font-size:0.82rem; }
+  .phone-num { flex:1; }
+
+  .form-success { display:none; text-align:center; padding:28px 20px; }
+  .form-success.show { display:block; }
+  .success-icon {
+    width:60px; height:60px; border-radius:50%;
+    background:rgba(123,255,0,0.1); border:2px solid rgba(123,255,0,0.3);
+    display:flex; align-items:center; justify-content:center; margin:0 auto 18px; color:var(--green);
+  }
+  .form-success h3 { font-size:1.2rem; margin-bottom:10px; }
+  .form-success p { font-size:0.84rem; color:var(--gray); line-height:1.65; }
+
+  /* ============ FOOTER ============ */
+  footer {
+    position: relative;
+    padding: 60px 0 36px;
+    background: linear-gradient(180deg, rgba(139,92,246,0.05) 0%, rgba(109,40,217,0.08) 100%);
+    border-top: 1px solid transparent;
+  }
+  /* Glowing violet separator line */
+  footer::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px;
+    background: linear-gradient(90deg, transparent 0%, rgba(139,92,246,0.7) 30%, rgba(167,139,250,0.9) 50%, rgba(139,92,246,0.7) 70%, transparent 100%);
+    box-shadow: 0 0 20px rgba(139,92,246,0.4);
+  }
+  .footer-inner { display:flex; align-items:center; justify-content:space-between; margin-bottom:32px; }
+  .footer-logo {
+    font-family:'Space Grotesk',sans-serif; font-size:1.5rem; font-weight:700;
+    color:var(--white); text-decoration:none; letter-spacing:-0.04em;
+    text-shadow: 0 0 28px rgba(139,92,246,0.25);
+  }
+  .footer-logo span { color:var(--violet); text-shadow: 0 0 16px rgba(139,92,246,0.7); }
+  .footer-links { display:flex; gap:28px; list-style:none; }
+  .footer-links a { color:rgba(255,255,255,0.55); text-decoration:none; font-size:0.85rem; font-weight:500; transition:color 200ms; }
+  .footer-links a:hover { color:var(--white); }
+  .footer-bottom {
+    display:flex; align-items:center; justify-content:space-between;
+    padding-top:24px; border-top:1px solid rgba(255,255,255,0.07);
+    font-size:0.78rem; color:rgba(255,255,255,0.38);
+  }
+  .fbadge { display:flex; align-items:center; gap:6px; font-size:0.72rem; color:rgba(255,255,255,0.45); }
+  .fbadge-dot { width:5px; height:5px; border-radius:50%; background:var(--green); animation:pdot 2s infinite; }
+
+  /* REVEAL */
+  .reveal { opacity:0; transform:translateY(18px); transition:opacity 700ms cubic-bezier(0.22,1,0.36,1),transform 700ms cubic-bezier(0.22,1,0.36,1); }
+  .reveal.visible { opacity:1; transform:translateY(0); }
+  .d1{transition-delay:80ms} .d2{transition-delay:160ms} .d3{transition-delay:240ms} .d4{transition-delay:320ms} .d5{transition-delay:400ms}
+
+  /* ============ RESPONSIVE ============ */
+  @media(max-width:1024px){
+    .hero-inner,.solution-inner,.demo-wrap{grid-template-columns:1fr}
+    .hero-visual{order:-1}
+    .features-grid,.metrics-grid,.steps-grid,.testi-grid{grid-template-columns:1fr 1fr}
+    .steps-grid::before{display:none}
+  }
+  @media(max-width:768px){
+    .nav-links,.nav-cta{display:none}
+    .nav-mobile-btn{display:block}
+    nav.open .nav-links{
+      display:flex; flex-direction:column; position:absolute;
+      top:calc(100% + 8px); left:0; right:0;
+      background:rgba(15,23,42,0.97); border:1px solid rgba(255,255,255,0.08);
+      border-radius:16px; padding:20px 24px; gap:16px;
+    }
+    nav.open .nav-cta{display:block;margin-top:4px;text-align:center}
+    .features-grid,.metrics-grid,.steps-grid,.testi-grid{grid-template-columns:1fr}
+    .form-grid{grid-template-columns:1fr}
+    .footer-inner{flex-direction:column;gap:20px;text-align:center}
+    .footer-bottom{flex-direction:column;gap:8px;text-align:center}
+    .footer-links{flex-wrap:wrap;justify-content:center;gap:16px}
+    .form-wrap{padding:26px 18px}
+    .wa-phone,.demo-phone{max-width:290px;width:100%}
+    .hero-actions{flex-direction:column;align-items:flex-start}
+    /* texto primero, chat después — grid order, no flex */
+    .hero-visual{order:2}
+    .hero-content{order:1}
+    .float-badge,.float-badge2{display:none}
+  }
+  @media(max-width:480px){
+    .hero-title{font-size:2rem}
+    .section-title{font-size:1.7rem}
+    .metric-val{font-size:2.4rem}
+  }
+  @media(prefers-reduced-motion:reduce){
+    *,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}
+    .reveal{opacity:1;transform:none}
+  }
+</style>
+</head>
+<body>
+
+<!-- NEURAL VORTEX BACKGROUND CANVAS -->
+<canvas id="neuro-bg" style="position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none;opacity:0.32;"></canvas>
+<canvas id="sparkles-bg" style="position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none;"></canvas>
+
+<!-- NAVBAR -->
+<nav id="navbar" role="navigation" aria-label="Navegación principal">
+  <a href="#" class="nav-logo" aria-label="Closr inicio">Closr<span>.</span></a>
+  <ul class="nav-links">
+    <li><a href="#problem">El Problema</a></li>
+    <li><a href="#features">Funciones</a></li>
+    <li><a href="#how">Cómo Funciona</a></li>
+    <li><a href="#faq">FAQ</a></li>
+  </ul>
+  <a href="#waitlist" class="nav-cta">Acceso Anticipado</a>
+  <button class="nav-mobile-btn" aria-label="Abrir menú" onclick="toggleNav()">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h18M3 6h18M3 18h18"/></svg>
+  </button>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="orb orb-violet" style="width:580px;height:580px;top:-180px;left:-80px;"></div>
+  <div class="orb orb-sm" style="width:360px;height:360px;top:30%;right:-80px;"></div>
+  <div class="container">
+    <div class="hero-inner">
+      <div>
+        <div class="hero-eyebrow reveal">
+          <span class="badge"><span class="badge-dot"></span>Acceso Anticipado Disponible</span>
+        </div>
+        <h1 class="hero-title reveal d1">
+          Recupera ventas perdidas <em>automáticamente.</em>
+        </h1>
+        <p class="hero-sub reveal d2">Tu vendedor experto impulsado por IA responde a cada lead, hace seguimiento automático y convierte más conversaciones en ventas — las 24 horas, los 7 días.</p>
+        <div class="hero-actions reveal d3">
+          <a href="#waitlist" class="btn-primary">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+            Quiero acceso anticipado
+          </a>
+          <a href="#demo" class="btn-secondary">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polygon points="10,8 16,12 10,16" fill="currentColor" stroke="none"/></svg>
+            Ver demostración
+          </a>
+        </div>
+        <div class="hero-sp reveal d4">
+          <div class="hero-avatars">
+            <div class="hero-av">JM</div>
+            <div class="hero-av">SR</div>
+            <div class="hero-av">AL</div>
+            <div class="hero-av">TP</div>
+          </div>
+          <span><strong>+50 negocios</strong> ya solicitaron acceso anticipado</span>
+        </div>
+      </div>
+
+      <div class="hero-visual reveal d2">
+        <div class="float-badge" style="top:-18px;right:-24px;">
+          <div class="val">+34</div>
+          <div class="lbl">Ventas recuperadas</div>
+        </div>
+        <div class="wa-phone">
+          <div class="wa-header">
+            <div class="wa-av"><svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><defs><radialGradient id="miniG1" cx="40%" cy="30%" r="70%"><stop offset="0%" stop-color="#C4B5FD"/><stop offset="55%" stop-color="#8B5CF6"/><stop offset="100%" stop-color="#1E1B4B"/></radialGradient></defs><circle cx="50" cy="50" r="50" fill="url(#miniG1)"/><!-- left eye --><ellipse cx="34" cy="50" rx="11" ry="14" fill="white"/><ellipse cx="34" cy="51" rx="9" ry="12" fill="#0D0620"/><ellipse cx="29" cy="44" rx="4" ry="5" fill="white" opacity="0.88"/><circle cx="31" cy="42" r="1.8" fill="white"/><!-- right eye --><ellipse cx="66" cy="50" rx="11" ry="14" fill="white"/><ellipse cx="66" cy="51" rx="9" ry="12" fill="#0D0620"/><ellipse cx="61" cy="44" rx="4" ry="5" fill="white" opacity="0.88"/><circle cx="63" cy="42" r="1.8" fill="white"/></svg></div>
+            <div>
+              <div class="wa-name">Plum</div>
+              <div class="wa-status"><span class="wa-sdot"></span>Activo ahora</div>
+            </div>
+          </div>
+          <div class="wa-msgs" id="hero-msgs">
+            <div class="wa-msg in" id="hm1">Hola, vi su publicación. ¿Cuánto cuesta más o menos?<div class="wa-time">9:14 AM</div></div>
+            <div class="wa-typing" id="hm-t"><div class="wa-dot"></div><div class="wa-dot"></div><div class="wa-dot"></div></div>
+            <div class="wa-msg out" id="hm2">Hola, desde $50 depende del plan. ¿Qué tipo de negocio tienes?<div class="wa-time">9:14 AM ✓✓</div></div>
+            <div class="wa-msg out" id="hm3">Hola, te escribo para ver si pudiste revisar lo que te mandé.<div class="wa-time">11:32 AM ✓✓</div></div>
+            <div class="wa-msg in" id="hm4">Sí perdona, andaba en una reunión. Sí me interesa.<div class="wa-time">11:35 AM</div></div>
+            <div class="wa-msg out" id="hm5">No hay problema. ¿Puedes hoy a las 3 para hablar un momento?<div class="wa-time">11:35 AM ✓✓</div></div>
+          </div>
+        </div>
+        <div class="float-badge2" style="bottom:16px;left:-28px;">
+          <div class="val">24/7</div>
+          <div class="lbl">Siempre disponible</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROBLEM -->
+<section id="problem">
+  <div class="orb orb-sm" style="width:480px;height:480px;top:50%;left:50%;transform:translate(-50%,-50%);"></div>
+  <div class="container">
+    <div class="section-header reveal">
+      <p class="section-label">El Problema</p>
+      <h2 class="section-title">Cada día estás perdiendo ventas.</h2>
+      <p class="section-sub">Entre el 60% y 80% de los leads nunca reciben seguimiento. El dinero está ahí — nadie lo está cerrando.</p>
+    </div>
+    <div class="problem-grid">
+
+      <div class="problem-card reveal d1">
+        <span class="p-stat">78% de casos</span>
+        <div class="p-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg></div>
+        <h3>Sin seguimiento</h3>
+        <p>Un lead escribe, tu equipo responde tarde o no responde. El cliente se va con la competencia sin que lo sepas.</p>
+        <div class="p-bottom"><span class="p-bottom-dot"></span>Ocurre en negocios sin automatización</div>
+      </div>
+
+      <div class="problem-card reveal d2">
+        <span class="p-stat">24h críticas</span>
+        <div class="p-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+        <h3>Prospectos que se enfrían</h3>
+        <p>Un cliente interesado hoy se olvida mañana. Sin follow-up estratégico, las oportunidades cálidas se vuelven frías.</p>
+        <div class="p-bottom"><span class="p-bottom-dot"></span>La ventana de interés cierra en menos de 1 día</div>
+      </div>
+
+      <div class="problem-card reveal d3">
+        <span class="p-stat">+40 chats/día</span>
+        <div class="p-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div>
+        <h3>Conversaciones olvidadas</h3>
+        <p>Con decenas de chats abiertos es imposible recordar quién preguntó qué y cuándo hacer seguimiento.</p>
+        <div class="p-bottom"><span class="p-bottom-dot"></span>Imposible de gestionar manualmente a escala</div>
+      </div>
+
+      <div class="problem-card reveal d4">
+        <span class="p-stat">$$ perdidos</span>
+        <div class="p-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg></div>
+        <h3>Oportunidades perdidas</h3>
+        <p>Cada mensaje sin responder es dinero que se va. Cada seguimiento que no ocurre es una venta que nunca cerraste.</p>
+        <div class="p-bottom"><span class="p-bottom-dot"></span>Ingresos directos que se evaporan cada semana</div>
+      </div>
+
+      <div class="problem-card reveal d5">
+        <span class="p-stat">Revenue gap</span>
+        <div class="p-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div>
+        <h3>Ingresos que no cierras</h3>
+        <p>Tu negocio genera más interés del que puede atender. El problema no es la demanda — es no tener quién la cierre.</p>
+        <div class="p-bottom"><span class="p-bottom-dot"></span>La demanda existe. Solo falta quién la cierre</div>
+      </div>
+
+      <div class="problem-card reveal d1">
+        <span class="p-stat warn">Costo alto</span>
+        <div class="p-icon" style="background:rgba(251,191,36,.1);border-color:rgba(251,191,36,.22);color:#FBBF24;box-shadow:0 0 18px rgba(251,191,36,0.1);"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2M9 9h.01M15 9h.01"/></svg></div>
+        <h3>Tu equipo no da abasto</h3>
+        <p>Contratar más vendedores es caro y lento. Y aun así, los humanos necesitan dormir y tienen límites de capacidad.</p>
+        <div class="p-bottom"><span class="p-bottom-dot warn"></span>Un vendedor cuesta 10× más que Closr al mes</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- SOLUTION -->
+<section id="solution">
+  <div class="container">
+    <div class="solution-inner">
+      <div class="plum-wrap reveal">
+        <div class="plum-float-wrapper">
+        <div class="plum-character" id="plum">
+          <svg xmlns="http://www.w3.org/2000/svg" width="231" height="289" viewBox="0 0 231 289">
+            <defs>
+              <clipPath id="plumClip">
+                <path d="M230.809 115.385V249.411C230.809 269.923 214.985 287.282 194.495 288.411C184.544 288.949 175.364 285.718 168.26 280C159.746 273.154 147.769 273.461 139.178 280.23C132.638 285.384 124.381 288.462 115.379 288.462C106.377 288.462 98.1451 285.384 91.6055 280.23C82.912 273.385 70.9353 273.385 62.2415 280.23C55.7532 285.334 47.598 288.411 38.7246 288.462C17.4132 288.615 0 270.667 0 249.359V115.385C0 51.6667 51.6756 0 115.404 0C179.134 0 230.809 51.6667 230.809 115.385Z"/>
+              </clipPath>
+              <!-- Animated mesh gradient — brand violet palette, flowing shader look -->
+              <radialGradient id="pg1" cx="38%" cy="28%" r="65%">
+                <animate attributeName="cx" values="38%;62%;25%;55%;38%" dur="9s" repeatCount="indefinite"/>
+                <animate attributeName="cy" values="28%;55%;72%;18%;28%" dur="11s" repeatCount="indefinite"/>
+                <stop offset="0%" stop-color="#EDE9FE"/>
+                <stop offset="50%" stop-color="#8B5CF6"/>
+                <stop offset="100%" stop-color="#1E1B4B"/>
+              </radialGradient>
+              <radialGradient id="pg2" cx="78%" cy="60%" r="55%">
+                <animate attributeName="cx" values="78%;30%;65%;80%;78%" dur="7s" repeatCount="indefinite"/>
+                <animate attributeName="cy" values="60%;20%;75%;45%;60%" dur="13s" repeatCount="indefinite"/>
+                <stop offset="0%" stop-color="#6D28D9" stop-opacity="0.85"/>
+                <stop offset="100%" stop-color="#1E1B4B" stop-opacity="0"/>
+              </radialGradient>
+              <radialGradient id="pg3" cx="20%" cy="82%" r="50%">
+                <animate attributeName="cx" values="20%;70%;15%;50%;20%" dur="11s" repeatCount="indefinite"/>
+                <animate attributeName="cy" values="82%;30%;60%;85%;82%" dur="8s" repeatCount="indefinite"/>
+                <stop offset="0%" stop-color="#A78BFA" stop-opacity="0.7"/>
+                <stop offset="100%" stop-color="#1E1B4B" stop-opacity="0"/>
+              </radialGradient>
+              <radialGradient id="pg4" cx="55%" cy="15%" r="45%">
+                <animate attributeName="cx" values="55%;25%;70%;40%;55%" dur="10s" repeatCount="indefinite"/>
+                <animate attributeName="cy" values="15%;65%;30%;80%;15%" dur="6s" repeatCount="indefinite"/>
+                <stop offset="0%" stop-color="#ffffff" stop-opacity="0.3"/>
+                <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+              </radialGradient>
+            </defs>
+
+            <!-- Mesh gradient body -->
+            <g clip-path="url(#plumClip)">
+              <rect width="231" height="289" fill="#1E1B4B"/>
+              <rect width="231" height="289" fill="url(#pg1)"/>
+              <rect width="231" height="289" fill="url(#pg2)"/>
+              <rect width="231" height="289" fill="url(#pg3)"/>
+              <rect width="231" height="289" fill="url(#pg4)"/>
+            </g>
+
+            <!-- Eyes — groups for transform tracking, individual ellipses for blink -->
+            <g id="plum-eye-gl">
+              <!-- outer white ring gives contrast border -->
+              <ellipse cx="82" cy="126" rx="30" ry="38" fill="white"/>
+              <!-- dark iris -->
+              <ellipse id="plum-eye-l" cx="82" cy="128" rx="25" ry="33" fill="#0D0620"/>
+              <!-- large soft gleam upper-left -->
+              <ellipse cx="71" cy="112" rx="11" ry="13" fill="white" opacity="0.88"/>
+              <!-- tiny bright sparkle -->
+              <circle cx="77" cy="107" r="4.5" fill="white"/>
+            </g>
+            <g id="plum-eye-gr">
+              <ellipse cx="149" cy="126" rx="30" ry="38" fill="white"/>
+              <ellipse id="plum-eye-r" cx="149" cy="128" rx="25" ry="33" fill="#0D0620"/>
+              <ellipse cx="138" cy="112" rx="11" ry="13" fill="white" opacity="0.88"/>
+              <circle cx="144" cy="107" r="4.5" fill="white"/>
+            </g>
+
+          </svg>
+        </div>
+        </div><!-- end float-wrapper -->
+        <div class="plum-glow"></div>
+        <div class="plum-name-tag">
+          <span class="plum-tag-label">Tu agente de ventas IA</span>
+          <span class="plum-tag-name">Plum</span>
+        </div>
+        <div class="ai-stats" style="max-width:260px;">
+          <div class="ai-stat"><div class="v">∞</div><div class="l">Conversaciones</div></div>
+          <div class="ai-stat"><div class="v">24/7</div><div class="l">Disponible</div></div>
+          <div class="ai-stat"><div class="v">0s</div><div class="l">Resp. inmediata</div></div>
+        </div>
+      </div>
+      <div>
+        <p class="section-label reveal">La Solución</p>
+        <h2 class="section-title reveal d1">Conoce a tu nuevo vendedor.</h2>
+        <p class="section-sub reveal d2">Disponible 24/7. Nunca olvida un seguimiento. Nunca deja una oportunidad sin atender. Y trabaja dentro de WhatsApp — donde ya están tus clientes.</p>
+        <div class="sol-items">
+          <div class="sol-item reveal d2">
+            <div class="sol-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg></div>
+            <div><h4>Responde al instante</h4><p>Cero tiempo de espera. Cada lead recibe atención inmediata, cualquier hora del día.</p></div>
+          </div>
+          <div class="sol-item reveal d3">
+            <div class="sol-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+            <div><h4>Seguimiento automático</h4><p>Si un prospecto no responde, Closr hace follow-up en el momento y tono exactos.</p></div>
+          </div>
+          <div class="sol-item reveal d4">
+            <div class="sol-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+            <div><h4>Cierra más ventas</h4><p>Maneja objeciones, califica prospectos y escala a tu equipo cuando es el momento exacto.</p></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DEMO -->
+<section id="demo">
+  <div class="orb orb-sm" style="width:400px;height:400px;bottom:-80px;right:-80px;"></div>
+  <div class="container">
+    <div class="section-header reveal">
+      <p class="section-label">Demo Interactiva</p>
+      <h2 class="section-title">Así recupera Closr una venta perdida.</h2>
+      <p class="section-sub">Mira cómo tu nuevo vendedor convierte una conversación abandonada en una venta — completamente automático.</p>
+    </div>
+    <div class="demo-wrap">
+      <div class="demo-phone reveal">
+        <div class="wa-header">
+          <div class="wa-av"><svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><defs><radialGradient id="miniG2" cx="40%" cy="30%" r="70%"><stop offset="0%" stop-color="#C4B5FD"/><stop offset="55%" stop-color="#8B5CF6"/><stop offset="100%" stop-color="#1E1B4B"/></radialGradient></defs><circle cx="50" cy="50" r="50" fill="url(#miniG2)"/><!-- left eye --><ellipse cx="34" cy="50" rx="11" ry="14" fill="white"/><ellipse cx="34" cy="51" rx="9" ry="12" fill="#0D0620"/><ellipse cx="29" cy="44" rx="4" ry="5" fill="white" opacity="0.88"/><circle cx="31" cy="42" r="1.8" fill="white"/><!-- right eye --><ellipse cx="66" cy="50" rx="11" ry="14" fill="white"/><ellipse cx="66" cy="51" rx="9" ry="12" fill="#0D0620"/><ellipse cx="61" cy="44" rx="4" ry="5" fill="white" opacity="0.88"/><circle cx="63" cy="42" r="1.8" fill="white"/></svg></div>
+          <div>
+            <div class="wa-name">Plum</div>
+            <div class="wa-status"><span class="wa-sdot"></span>Activo ahora</div>
+          </div>
+        </div>
+        <div class="wa-msgs" id="demo-msgs">
+          <div class="wa-msg in" id="dm1">Buenas, ¿cuánto sale más o menos?<div class="wa-time">2:15 PM</div></div>
+          <div class="wa-typing" id="dm-t1"><div class="wa-dot"></div><div class="wa-dot"></div><div class="wa-dot"></div></div>
+          <div class="wa-msg out" id="dm2">Buenas, desde $50 depende del plan. ¿Qué tipo de negocio manejas?<div class="wa-time">2:15 PM ✓✓</div></div>
+          <div class="wa-msg in" id="dm3" style="opacity:0.5;font-style:italic;color:#64748B;">— Visto, sin respuesta —<div class="wa-time">2:16 PM</div></div>
+          <div class="wa-msg out" id="dm4">Hola, te escribo para ver si tuviste oportunidad de revisar mi mensaje.<div class="wa-time">Día siguiente 10:00 AM ✓✓</div></div>
+          <div class="wa-msg in" id="dm5">Perdona, ayer estuve muy ocupado. Sí me interesa.<div class="wa-time">10:05 AM</div></div>
+          <div class="wa-msg out" id="dm6">No hay problema. ¿Tienes un momento hoy para que te cuente cómo funciona?<div class="wa-time">10:05 AM ✓✓</div></div>
+          <div class="wa-msg in" id="dm7">Sí, puedo a las 3.<div class="wa-time">10:06 AM</div></div>
+          <div class="wa-msg out" id="dm8" style="border-color:rgba(123,255,0,.4);">Perfecto, a las 3 entonces. Te hago un recordatorio un rato antes. ✅<div class="wa-time">10:06 AM ✓✓</div></div>
+        </div>
+      </div>
+      <div class="demo-steps reveal d2">
+        <div class="demo-step active" id="ds1">
+          <div class="dsn">1</div>
+          <div><h4>Lead pregunta el precio</h4><p>El prospecto llega por WhatsApp. Closr responde en segundos con información precisa.</p></div>
+        </div>
+        <div class="demo-step" id="ds2">
+          <div class="dsn">2</div>
+          <div><h4>Cliente desaparece</h4><p>El prospecto no responde. Un vendedor humano olvidaría este chat. Closr lo recuerda perfectamente.</p></div>
+        </div>
+        <div class="demo-step" id="ds3">
+          <div class="dsn">3</div>
+          <div><h4>Seguimiento automático</h4><p>Al día siguiente, Closr hace un follow-up natural y sin presión — en el momento y tono perfectos.</p></div>
+        </div>
+        <div class="demo-step" id="ds4">
+          <div class="dsn">4</div>
+          <div>
+            <h4>Venta recuperada</h4>
+            <p>El cliente vuelve, se engancha y agenda una llamada. Venta recuperada automáticamente.</p>
+            <div class="demo-result">+1 venta recuperada automáticamente</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section id="features">
+  <div class="container">
+    <div class="section-header reveal">
+      <p class="section-label">Funcionalidades</p>
+      <h2 class="section-title">Todo lo que hace tu vendedor experto.</h2>
+      <p class="section-sub">No es un chatbot genérico. Es un vendedor entrenado para tu negocio que trabaja sin descanso.</p>
+    </div>
+    <div class="features-grid">
+      <div class="feature-card reveal d1">
+        <div class="f-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg></div>
+        <h3>Responde al instante</h3>
+        <p>Tiempo de respuesta de 0 segundos. Ningún lead espera, ninguna oportunidad se enfría. Atención inmediata y personalizada siempre.</p>
+      </div>
+      <div class="feature-card reveal d2">
+        <div class="f-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+        <h3>Hace seguimiento automáticamente</h3>
+        <p>Si un prospecto no responde, Closr hace follow-up en el momento exacto con el mensaje correcto — sin que tengas que hacer nada.</p>
+      </div>
+      <div class="feature-card reveal d3">
+        <div class="f-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><polyline points="22 11 16 17 13 14"/></svg></div>
+        <h3>Clasifica prospectos</h3>
+        <p>Identifica quién está listo para comprar, quién necesita más información y quién no califica — tu equipo se enfoca en cerrar.</p>
+      </div>
+      <div class="feature-card reveal d4">
+        <div class="f-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+        <h3>Recupera ventas perdidas</h3>
+        <p>Reencuentra conversaciones abandonadas y oportunidades olvidadas. Convierte el pasado en ingresos presentes.</p>
+      </div>
+      <div class="feature-card reveal d5">
+        <div class="f-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div>
+        <h3>Maneja objeciones</h3>
+        <p>Entrenado con las respuestas más efectivas. Precio, tiempo, competencia — Closr sabe exactamente qué responder.</p>
+      </div>
+      <div class="feature-card reveal d1">
+        <div class="f-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div>
+        <h3>Agenda reuniones por ti</h3>
+        <p>Cuando el prospecto está listo, Closr agenda la llamada o reunión automáticamente — sin que tu equipo levante un dedo.</p>
+      </div>
+      <div class="feature-card reveal d2">
+        <div class="f-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+        <h3>Escala a humanos</h3>
+        <p>Detecta el momento exacto para transferir la conversación a un agente humano — con todo el contexto listo para cerrar.</p>
+      </div>
+      <div class="feature-card reveal d3">
+        <div class="f-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg></div>
+        <h3>Métricas y reportes</h3>
+        <p>Ve exactamente cuántos leads atendiste, cuántas ventas recuperaste y cuánto ingreso generó Closr — todo en tiempo real.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- METRICS -->
+<section id="metrics">
+  <div class="orb orb-sm" style="width:500px;height:500px;top:50%;left:50%;transform:translate(-50%,-50%);"></div>
+  <div class="container">
+    <div class="section-header reveal">
+      <p class="section-label">Resultados</p>
+      <h2 class="section-title">Resultados que impactan tu negocio.</h2>
+      <p class="section-sub">Números reales de negocios que recuperan ventas con Closr todos los días.</p>
+    </div>
+    <div class="metrics-grid">
+      <div class="metric-card reveal d1">
+        <div class="metric-val"><span class="pfx">+</span><span class="count-up" data-target="34">0</span></div>
+        <div class="metric-lbl">Ventas recuperadas</div>
+        <div class="metric-desc">por mes en promedio por negocio usando Closr activamente.</div>
+      </div>
+      <div class="metric-card reveal d2">
+        <div class="metric-val"><span class="pfx">+</span><span class="count-up" data-target="21">0</span><span class="sfx">%</span></div>
+        <div class="metric-lbl">Aumento en conversión</div>
+        <div class="metric-desc">más prospectos cierran con seguimiento automático e inmediato.</div>
+      </div>
+      <div class="metric-card reveal d3">
+        <div class="metric-val"><span class="pfx">+$</span><span class="count-up" data-target="1200">0</span></div>
+        <div class="metric-lbl">Ingresos generados</div>
+        <div class="metric-desc">promedio mensual adicional por negocios usando Plum activamente.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section id="how">
+  <div class="container">
+    <div class="section-header reveal">
+      <p class="section-label">Proceso</p>
+      <h2 class="section-title">Empieza en minutos.</h2>
+      <p class="section-sub">Sin código. Sin integraciones complicadas. Solo conecta y cierra más.</p>
+    </div>
+    <div class="steps-grid">
+      <div class="step-card reveal d1">
+        <div class="step-num">1</div>
+        <h3>Conecta tu WhatsApp</h3>
+        <p>En menos de 2 minutos conectas tu número de WhatsApp Business a Closr. Sin instalar nada extra en tu teléfono.</p>
+      </div>
+      <div class="step-card reveal d2">
+        <div class="step-num">2</div>
+        <h3>Entrena a tu vendedor</h3>
+        <p>Le cuentas a Closr sobre tu negocio, productos y forma de vender. Se adapta completamente a tu estilo y tono.</p>
+      </div>
+      <div class="step-card reveal d3">
+        <div class="step-num">3</div>
+        <h3>Recupera más ventas</h3>
+        <p>Desde el primer día, Closr atiende cada lead, hace seguimiento automático y cierra más ventas por ti.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section id="testimonials">
+  <div class="container">
+    <div class="section-header reveal">
+      <p class="section-label">Testimonios</p>
+      <h2 class="section-title">Negocios que ya venden más.</h2>
+      <p class="section-sub">Empresas como la tuya que recuperaron ventas perdidas con Closr.</p>
+    </div>
+    <div class="testi-grid">
+      <div class="testi-card reveal d1">
+        <div class="testi-metric">+$1,800/mes</div>
+        <div class="testi-stars">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/></svg>
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/></svg>
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/></svg>
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/></svg>
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/></svg>
+        </div>
+        <p class="testi-quote">"Antes perdíamos el 70% de los leads por falta de seguimiento. Con Closr, ese dinero ahora entra solo. Es como tener un vendedor estrella que nunca descansa."</p>
+        <div class="testi-author">
+          <div class="testi-av">JM</div>
+          <div><div class="testi-name">Jorge Mendoza</div><div class="testi-role">Director Comercial</div></div>
+        </div>
+      </div>
+      <div class="testi-card reveal d2">
+        <div class="testi-metric">+38 ventas/mes</div>
+        <div class="testi-stars">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/></svg>
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/></svg>
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/></svg>
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/></svg>
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/></svg>
+        </div>
+        <p class="testi-quote">"Pensé que era otro chatbot más. Estaba equivocada. Closr entiende a mis clientes, hace seguimiento como un pro y triplicó mi tasa de cierre en 60 días."</p>
+        <div class="testi-author">
+          <div class="testi-av">SR</div>
+          <div><div class="testi-name">Sofía Restrepo</div><div class="testi-role">Fundadora & CEO</div></div>
+        </div>
+      </div>
+      <div class="testi-card reveal d3">
+        <div class="testi-metric">+25% conversión</div>
+        <div class="testi-stars">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/></svg>
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/></svg>
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/></svg>
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/></svg>
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/></svg>
+        </div>
+        <p class="testi-quote">"Mi equipo se enfoca en cerrar. Closr filtra, califica y hace todo el seguimiento inicial. La mejor inversión que hice en mi negocio este año."</p>
+        <div class="testi-author">
+          <div class="testi-av">AL</div>
+          <div><div class="testi-name">Andrés Lozano</div><div class="testi-role">CEO & Founder</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section id="faq">
+  <div class="container">
+    <div class="section-header reveal">
+      <p class="section-label">Preguntas Frecuentes</p>
+      <h2 class="section-title">Resolvemos tus dudas.</h2>
+    </div>
+    <div class="faq-list">
+      <div class="faq-item reveal d1">
+        <button class="faq-q" onclick="toggleFaq(this)" aria-expanded="false">
+          ¿Necesito conocimientos técnicos para usar Closr?
+          <div class="faq-ic" aria-hidden="true"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M12 5v14M5 12h14"/></svg></div>
+        </button>
+        <div class="faq-a"><div class="faq-a-inner">No. Si sabes usar WhatsApp, ya sabes cómo empezar con Closr. La configuración inicial toma menos de 15 minutos y nuestro equipo te acompaña en cada paso.</div></div>
+      </div>
+      <div class="faq-item reveal d2">
+        <button class="faq-q" onclick="toggleFaq(this)" aria-expanded="false">
+          ¿Closr reemplaza a mi equipo de ventas?
+          <div class="faq-ic" aria-hidden="true"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M12 5v14M5 12h14"/></svg></div>
+        </button>
+        <div class="faq-a"><div class="faq-a-inner">No reemplaza — potencia. Closr maneja el volumen, el seguimiento y la calificación para que tu equipo humano se enfoque en cerrar las oportunidades más calientes. Tus vendedores venderán más.</div></div>
+      </div>
+      <div class="faq-item reveal d3">
+        <button class="faq-q" onclick="toggleFaq(this)" aria-expanded="false">
+          ¿Qué pasa si Closr no sabe cómo responder algo?
+          <div class="faq-ic" aria-hidden="true"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M12 5v14M5 12h14"/></svg></div>
+        </button>
+        <div class="faq-a"><div class="faq-a-inner">Closr detecta automáticamente cuándo una conversación requiere atención humana y la transfiere con todo el contexto. Tu reputación siempre está protegida.</div></div>
+      </div>
+      <div class="faq-item reveal d4">
+        <button class="faq-q" onclick="toggleFaq(this)" aria-expanded="false">
+          ¿Funciona para cualquier tipo de negocio?
+          <div class="faq-ic" aria-hidden="true"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M12 5v14M5 12h14"/></svg></div>
+        </button>
+        <div class="faq-a"><div class="faq-a-inner">Funciona especialmente bien para negocios que reciben leads por WhatsApp: inmobiliarias, academias, agencias, clínicas, tiendas, servicios profesionales. Si vendes a través de conversaciones, Closr es para ti.</div></div>
+      </div>
+      <div class="faq-item reveal d5">
+        <button class="faq-q" onclick="toggleFaq(this)" aria-expanded="false">
+          ¿Qué tan rápido puedo comenzar a ver resultados?
+          <div class="faq-ic" aria-hidden="true"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M12 5v14M5 12h14"/></svg></div>
+        </button>
+        <div class="faq-a"><div class="faq-a-inner">Desde el primer día. Una vez conectado, Closr empieza a responder leads inmediatamente. La mayoría de los negocios ven sus primeras ventas recuperadas dentro de las primeras 48-72 horas.</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section id="cta-final">
+  <div class="orb orb-violet" style="width:560px;height:560px;top:50%;left:50%;transform:translate(-50%,-50%);"></div>
+  <div class="container">
+    <div class="cta-inner">
+      <div class="reveal"><span class="badge"><span class="badge-dot"></span>Acceso Limitado</span></div>
+      <h2 class="section-title reveal d1">Deja de perder ventas.</h2>
+      <p class="section-sub reveal d2">Tu próximo vendedor ya está listo para trabajar. Sin salario. Sin vacaciones. Sin excusas. Solo resultados.</p>
+      <div class="reveal d3"><a href="#waitlist" class="btn-primary" style="font-size:1.05rem;padding:16px 32px;">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+        Quiero acceso anticipado
+      </a></div>
+    </div>
+  </div>
+</section>
+
+<!-- WAITLIST -->
+<section id="waitlist">
+  <div class="container">
+    <div class="form-wrap reveal">
+      <div class="sp-bar">
+        <div class="sp-avs">
+          <div class="sp-av">JM</div><div class="sp-av">SR</div>
+          <div class="sp-av">AL</div><div class="sp-av">+</div>
+        </div>
+        <span><strong>+50 negocios</strong> ya solicitaron acceso anticipado</span>
+      </div>
+
+      <div id="form-content">
+        <p class="form-title">Quiero acceso anticipado</p>
+        <p class="form-sub">Completa el formulario y te contactamos cuando abramos las primeras pruebas.</p>
+        <form id="waitlist-form" novalidate>
+          <div class="form-grid">
+            <div class="form-group">
+              <label class="form-lbl" for="f-nombre">Nombre completo *</label>
+              <input class="form-input" type="text" id="f-nombre" name="nombre" placeholder="Tu nombre" required autocomplete="name">
+            </div>
+            <div class="form-group">
+              <label class="form-lbl" for="f-empresa">Nombre de la empresa *</label>
+              <input class="form-input" type="text" id="f-empresa" name="empresa" placeholder="Tu empresa" required>
+            </div>
+            <div class="form-group">
+              <label class="form-lbl" for="f-wa-num">WhatsApp *</label>
+              <div class="phone-wrap">
+                <select class="form-select phone-code" id="f-wa-code" name="whatsapp_code">
+                  <option value="+591" selected>🇧🇴 +591</option>
+                  <option value="+52">🇲🇽 +52</option>
+                  <option value="+57">🇨🇴 +57</option>
+                  <option value="+51">🇵🇪 +51</option>
+                  <option value="+54">🇦🇷 +54</option>
+                  <option value="+56">🇨🇱 +56</option>
+                  <option value="+593">🇪🇨 +593</option>
+                  <option value="+58">🇻🇪 +58</option>
+                  <option value="+595">🇵🇾 +595</option>
+                  <option value="+598">🇺🇾 +598</option>
+                  <option value="+502">🇬🇹 +502</option>
+                  <option value="+503">🇸🇻 +503</option>
+                  <option value="+504">🇭🇳 +504</option>
+                  <option value="+505">🇳🇮 +505</option>
+                  <option value="+506">🇨🇷 +506</option>
+                  <option value="+507">🇵🇦 +507</option>
+                  <option value="+53">🇨🇺 +53</option>
+                  <option value="+1">🇺🇸 +1</option>
+                  <option value="+34">🇪🇸 +34</option>
+                </select>
+                <input class="form-input phone-num" type="tel" id="f-wa-num" name="whatsapp_num" placeholder="71234567" required autocomplete="tel">
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="form-lbl" for="f-email">Correo electrónico *</label>
+              <input class="form-input" type="email" id="f-email" name="email" placeholder="Tu correo" required autocomplete="email">
+            </div>
+            <div class="form-group form-full">
+              <label class="form-lbl" for="f-rubro">Rubro del negocio *</label>
+              <select class="form-select" id="f-rubro" name="rubro" required>
+                <option value="" disabled selected>Selecciona tu industria</option>
+                <option value="inmobiliaria">Inmobiliaria</option>
+                <option value="educacion">Educación / Academia online</option>
+                <option value="salud">Salud / Clínica / Bienestar</option>
+                <option value="agencia">Agencia de Marketing / Digital</option>
+                <option value="ecommerce">E-commerce / Tienda online</option>
+                <option value="servicios">Servicios profesionales</option>
+                <option value="retail">Retail / Tienda física</option>
+                <option value="restaurante">Restaurante / Alimentos</option>
+                <option value="financiero">Servicios financieros</option>
+                <option value="otro">Otro</option>
+              </select>
+            </div>
+            <div class="form-group form-full">
+              <label class="form-lbl" for="f-convs">Conversaciones aproximadas por WhatsApp al mes *</label>
+              <select class="form-select" id="f-convs" name="conversaciones" required>
+                <option value="" disabled selected>Selecciona un rango</option>
+                <option value="menos50">Menos de 50</option>
+                <option value="50-200">50 – 200</option>
+                <option value="200-500">200 – 500</option>
+                <option value="500-1000">500 – 1,000</option>
+                <option value="mas1000">Más de 1,000</option>
+              </select>
+            </div>
+          </div>
+          <button type="submit" class="form-submit" id="f-btn">Quiero acceso anticipado</button>
+          <p class="form-privacy">Sin spam. Sin compromisos. Puedes cancelar en cualquier momento.</p>
+        </form>
+      </div>
+
+      <div class="form-success" id="f-success">
+        <div class="success-icon">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+        </div>
+        <h3>¡Estás dentro!</h3>
+        <p>¡Gracias por registrarte! Ya formas parte de nuestra lista de acceso anticipado. Te contactaremos cuando abramos las primeras pruebas.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="footer-inner">
+      <a href="#" class="footer-logo">Closr<span>.</span></a>
+      <ul class="footer-links">
+        <li><a href="#problem">El Problema</a></li>
+        <li><a href="#features">Funciones</a></li>
+        <li><a href="#how">Cómo Funciona</a></li>
+        <li><a href="#faq">FAQ</a></li>
+        <li><a href="#waitlist">Acceso Anticipado</a></li>
+      </ul>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Closr. Todos los derechos reservados.</span>
+      <div class="fbadge"><span class="fbadge-dot"></span>Sistema operativo</div>
+      <span>Tu vendedor experto impulsado por IA</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+// iOS Safari detection
+const _iOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+
+// NAV
+try{
+function toggleNav(){document.getElementById('navbar').classList.toggle('open')}
+document.querySelectorAll('nav a').forEach(a=>a.addEventListener('click',()=>document.getElementById('navbar').classList.remove('open')));
+}catch(e){}
+
+// SCROLL REVEAL — fallback: make all visible immediately on iOS
+try{
+if(_iOS){
+  // On iOS use a simpler timeout-based reveal to avoid IntersectionObserver issues
+  document.querySelectorAll('.reveal').forEach((el,i)=>{
+    setTimeout(()=>el.classList.add('visible'), 100 + i*30);
+  });
+} else {
+  const ro=new IntersectionObserver((entries)=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');ro.unobserve(e.target)}})},{threshold:0.1});
+  document.querySelectorAll('.reveal').forEach(el=>ro.observe(el));
+}
+}catch(e){document.querySelectorAll('.reveal').forEach(el=>el.classList.add('visible'));}
+
+// HERO WA ANIMATION
+(function(){
+  const seq=[
+    {id:'hm1',t:400},
+    {id:'hm-t',t:900,hide:1600},
+    {id:'hm2',t:1700},
+    {id:'hm3',t:3200},
+    {id:'hm4',t:4400},
+    {id:'hm5',t:5200}
+  ];
+  seq.forEach(({id,t,hide})=>{
+    setTimeout(()=>{
+      const el=document.getElementById(id);
+      if(!el)return;
+      el.classList.add('show');
+      if(hide)setTimeout(()=>el.classList.remove('show'),hide-t);
+    },t);
+  });
+})();
+
+// DEMO ANIMATION
+(function(){
+  const demoSection=document.getElementById('demo');
+  let started=false;
+  new IntersectionObserver((entries)=>{
+    if(entries[0].isIntersecting&&!started){
+      started=true;
+      const seq=[
+        {id:'dm1',t:300},
+        {id:'dm-t1',t:800,hide:1500},
+        {id:'dm2',t:1600},
+        {id:'dm3',t:2600},
+        {id:'dm4',t:3800},
+        {id:'dm5',t:5000},
+        {id:'dm6',t:5700},
+        {id:'dm7',t:6500},
+        {id:'dm8',t:7300}
+      ];
+      seq.forEach(({id,t,hide})=>{
+        setTimeout(()=>{
+          const el=document.getElementById(id);
+          if(!el)return;
+          el.classList.add('show');
+          if(hide)setTimeout(()=>el.classList.remove('show'),hide-t);
+        },t);
+      });
+      // Steps
+      [[0,3800],[3800,5000],[5000,6500],[6500,99999]].forEach(([s,e],i)=>{
+        setTimeout(()=>{
+          document.querySelectorAll('.demo-step').forEach(x=>x.classList.remove('active'));
+          const d=document.getElementById('ds'+(i+1));
+          if(d)d.classList.add('active');
+        },s);
+      });
+    }
+  },{threshold:0.25}).observe(demoSection);
+})();
+
+// COUNT UP
+function countUp(el,target,dur){
+  let s=0,step=target/(dur/16);
+  const t=setInterval(()=>{
+    s+=step; if(s>=target){s=target;clearInterval(t);}
+    el.textContent=Math.floor(s).toLocaleString('es-MX');
+  },16);
+}
+new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      e.target.querySelectorAll('.count-up').forEach(el=>countUp(el,parseInt(el.dataset.target),1400));
+    }
+  });
+},{threshold:0.4}).observe(document.getElementById('metrics'));
+
+// FAQ
+function toggleFaq(btn){
+  const item=btn.closest('.faq-item'),isOpen=item.classList.contains('open');
+  document.querySelectorAll('.faq-item.open').forEach(i=>{i.classList.remove('open');i.querySelector('.faq-q').setAttribute('aria-expanded','false')});
+  if(!isOpen){item.classList.add('open');btn.setAttribute('aria-expanded','true');}
+}
+
+// SUPABASE
+const _SB_URL = 'https://mebufgsfxmxgqofllpdf.supabase.co';
+const _SB_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1lYnVmZ3NmeG14Z3FvZmxscGRmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODE3NDExMzAsImV4cCI6MjA5NzMxNzEzMH0.QbY0CsfHggW3frSM-2YL42v-iGeLKmQooeteuD2u9ag';
+
+async function saveToSupabase(lead){
+  const res = await fetch(_SB_URL+'/rest/v1/waitlist',{
+    method:'POST',
+    headers:{
+      'Content-Type':'application/json',
+      'apikey':_SB_KEY,
+      'Authorization':'Bearer '+_SB_KEY,
+      'Prefer':'return=minimal'
+    },
+    body:JSON.stringify(lead)
+  });
+  if(!res.ok){
+    const err = await res.text();
+    throw new Error(err);
+  }
+}
+
+// FORM
+document.getElementById('waitlist-form').addEventListener('submit',async function(e){
+  e.preventDefault();
+  const fields=['f-nombre','f-empresa','f-wa-num','f-email','f-rubro','f-convs'];
+  let valid=true;
+  fields.forEach(id=>{
+    const el=document.getElementById(id);
+    el.classList.remove('err');
+    if(!el.value.trim()){el.classList.add('err');valid=false;}
+  });
+  const em=document.getElementById('f-email');
+  if(em.value&&!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em.value)){em.classList.add('err');valid=false;}
+  if(!valid)return;
+
+  const btn=document.getElementById('f-btn');
+  btn.disabled=true; btn.textContent='Guardando...';
+
+  const lead={
+    nombre:document.getElementById('f-nombre').value.trim(),
+    empresa:document.getElementById('f-empresa').value.trim(),
+    whatsapp:document.getElementById('f-wa-code').value+' '+document.getElementById('f-wa-num').value.trim(),
+    email:document.getElementById('f-email').value.trim(),
+    rubro:document.getElementById('f-rubro').value.trim(),
+    conversaciones_mes:document.getElementById('f-convs').value.trim()
+  };
+
+  try{
+    await saveToSupabase(lead);
+    document.getElementById('form-content').style.display='none';
+    document.getElementById('f-success').classList.add('show');
+  }catch(err){
+    console.error('Supabase error:',err);
+    btn.disabled=false;
+    btn.textContent='Quiero acceso anticipado';
+    alert('Hubo un problema al guardar. Por favor intenta de nuevo.');
+  }
+});
+
+document.querySelectorAll('.form-input,.form-select,.phone-num').forEach(el=>el.addEventListener('input',()=>el.classList.remove('err')));
+
+// ── UNIFIED rAF LOOP ────────────────────────────────────────────────────────
+// Drives: badge float, Plum float, smooth eye tracking, JS blink
+// No CSS animation anywhere — integer pixels only → zero jitter
+(function(){
+  const b1    = document.querySelector('.float-badge');
+  const b2    = document.querySelector('.float-badge2');
+  const plumW = document.querySelector('.plum-float-wrapper');
+  const eyeL  = document.getElementById('plum-eye-l');   // for blink ry
+  const eyeR  = document.getElementById('plum-eye-r');
+  const eyeGL = document.getElementById('plum-eye-gl');  // for transform tracking
+  const eyeGR = document.getElementById('plum-eye-gr');
+
+  const MAX  = 7;
+  let tEye = {x:0,y:0};        // target offset
+  let cEye = {x:0,y:0};        // current (lerped)
+  const LERP = 0.10;            // smoothing factor (lower = smoother/slower)
+
+  // Blink state
+  let blinkTimer = 0;
+  let nextBlink  = 3.2;         // seconds until next blink
+  let blinking   = false;
+  let blinkPhase = 0;           // 0→close, 1→open
+
+  document.addEventListener('mousemove', e => {
+    const plum = document.getElementById('plum');
+    if(!plum) return;
+    const r  = plum.getBoundingClientRect();
+    const cx = r.left + r.width  / 2;
+    const cy = r.top  + r.height / 2;
+    tEye.x = Math.max(-MAX, Math.min(MAX, (e.clientX - cx) * 0.07));
+    tEye.y = Math.max(-MAX, Math.min(MAX, (e.clientY - cy) * 0.07));
+  });
+
+  function tick(ts){
+    const t  = ts / 1000;
+    const dt = 1/60;            // assume 60 fps; rAF gives us ~16ms
+
+    // ── Badges: STATIC — no movement
+    // (removed float — user prefers them still)
+
+    // ── Plum float — smooth float, no Math.round for GPU sub-pixel smoothing
+    if(plumW) plumW.style.transform = 'translate3d(0,' + (Math.sin(t*0.50)*7).toFixed(2) + 'px,0)';
+
+    // ── Eye lerp
+    cEye.x += (tEye.x - cEye.x) * LERP;
+    cEye.y += (tEye.y - cEye.y) * LERP;
+
+    // ── Blink logic
+    blinkTimer += dt;
+    let ryVal = 33;
+    if(!blinking && blinkTimer >= nextBlink){
+      blinking   = true;
+      blinkPhase = 0;
+      blinkTimer = 0;
+      nextBlink  = 2.8 + Math.random() * 3.5;
+    }
+    if(blinking){
+      blinkPhase += dt;
+      if(blinkPhase < 0.07)       ryVal = Math.round(33 * (1 - blinkPhase/0.07));
+      else if(blinkPhase < 0.14)  ryVal = Math.round(33 * ((blinkPhase-0.07)/0.07));
+      else { ryVal = 33; blinking = false; }
+    }
+
+    // ── Apply to SVG eyes — groups move, individual ellipses handle blink
+    const tx = cEye.x.toFixed(2), ty = cEye.y.toFixed(2);
+    if(eyeGL) eyeGL.setAttribute('transform', `translate(${tx},${ty})`);
+    if(eyeGR) eyeGR.setAttribute('transform', `translate(${tx},${ty})`);
+    if(eyeL)  eyeL.setAttribute('ry', ryVal);
+    if(eyeR)  eyeR.setAttribute('ry', ryVal);
+
+    requestAnimationFrame(tick);
+  }
+  requestAnimationFrame(tick);
+})();
+
+// ── SPOTLIGHT — all card types ───────────────────────────────────────────────
+document.querySelectorAll(
+  '.feature-card,.problem-card,.step-card,.testi-card,.metric-card,.demo-step,.sol-item,.float-badge,.float-badge2'
+).forEach(card=>{
+  card.addEventListener('mousemove',e=>{
+    const r = card.getBoundingClientRect();
+    card.style.setProperty('--glow-x',(e.clientX-r.left)+'px');
+    card.style.setProperty('--glow-y',(e.clientY-r.top)+'px');
+  });
+});
+
+// ── SPARKLES LAYER ──────────────────────────────────────────────────────────
+(function(){
+  const canvas = document.getElementById('sparkles-bg');
+  if(!canvas) return;
+  const _isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+  if(_isIOS){ canvas.style.display='none'; return; }
+  const ctx = canvas.getContext('2d');
+
+  function resize(){
+    canvas.width  = window.innerWidth;
+    canvas.height = window.innerHeight;
+  }
+  resize();
+  window.addEventListener('resize', resize);
+
+  const N = _isIOS ? 25 : 90;
+  const pts = Array.from({length: N}, () => ({
+    x:  Math.random(),
+    y:  Math.random(),
+    vx: (Math.random() - 0.5) * 0.00018,
+    vy: (Math.random() - 0.5) * 0.00018,
+    r:  Math.random() * 1.2 + 0.4,
+    op: Math.random(),
+    dir: Math.random() > 0.5 ? 1 : -1,
+    spd: 0.004 + Math.random() * 0.009,
+    col: Math.random() > 0.55 ? '#A78BFA' : '#ffffff',   // violet-light or white
+  }));
+
+  function draw(){
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    const W = canvas.width, H = canvas.height;
+    for(const p of pts){
+      // drift
+      p.x += p.vx; p.y += p.vy;
+      if(p.x < 0) p.x = 1; if(p.x > 1) p.x = 0;
+      if(p.y < 0) p.y = 1; if(p.y > 1) p.y = 0;
+      // twinkle
+      p.op += p.dir * p.spd;
+      if(p.op >= 1){ p.op = 1; p.dir = -1; }
+      if(p.op <= 0){ p.op = 0; p.dir =  1; }
+      // draw
+      ctx.save();
+      ctx.globalAlpha = p.op * 0.75;
+      ctx.fillStyle   = p.col;
+      ctx.shadowBlur  = 5;
+      ctx.shadowColor = p.col;
+      ctx.beginPath();
+      ctx.arc(p.x * W, p.y * H, p.r, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.restore();
+    }
+    requestAnimationFrame(draw);
+  }
+  draw();
+})();
+
+// ── NEURAL VORTEX WEBGL BACKGROUND ──────────────────────────────────────────
+(function(){
+  try {
+  const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+  const canvas = document.getElementById('neuro-bg');
+  if(!canvas) return;
+  if(isIOS){ canvas.style.display='none'; return; }
+  const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
+  if(!gl){ canvas.style.display='none'; return; }
+
+  const vsSource = `
+    precision mediump float;
+    attribute vec2 a_position;
+    varying vec2 vUv;
+    void main(){
+      vUv = .5*(a_position+1.);
+      gl_Position = vec4(a_position,0.,1.);
+    }
+  `;
+
+  // Brand palette: #0F172A deep black, #8B5CF6 violet, #6D28D9 dark violet
+  const fsSource = `
+    precision mediump float;
+    varying vec2 vUv;
+    uniform float u_time;
+    uniform float u_ratio;
+    uniform vec2  u_pointer;
+    uniform float u_scroll;
+
+    vec2 rotate(vec2 uv, float th){
+      return mat2(cos(th),sin(th),-sin(th),cos(th))*uv;
+    }
+
+    float neuro_shape(vec2 uv, float t, float p){
+      vec2 sine_acc = vec2(0.);
+      vec2 res = vec2(0.);
+      float scale = 8.;
+      for(int j=0;j<15;j++){
+        uv       = rotate(uv,1.);
+        sine_acc = rotate(sine_acc,1.);
+        vec2 layer = uv*scale + float(j) + sine_acc - t;
+        sine_acc  += sin(layer) + 2.4*p;
+        res       += (.5+.5*cos(layer))/scale;
+        scale     *= 1.2;
+      }
+      return res.x+res.y;
+    }
+
+    void main(){
+      vec2 uv = .5*vUv;
+      uv.x *= u_ratio;
+
+      vec2 ptr = vUv - u_pointer;
+      ptr.x *= u_ratio;
+      float p = clamp(length(ptr),0.,1.);
+      p = .5*pow(1.-p,2.);
+
+      float t = .001*u_time;
+      float noise = neuro_shape(uv,t,p);
+      noise = 1.2*pow(noise,3.);
+      noise += pow(noise,10.);
+      noise = max(0.,noise-.5);
+      noise *= (1.-length(vUv-.5));
+
+      // Brand violet palette
+      vec3 color = vec3(0.545,0.361,0.965);           // #8B5CF6 primary violet
+      color = mix(color,
+        vec3(0.28,0.12,0.62),                          // #471F9E deep violet
+        0.35+0.18*sin(2.*u_scroll+1.2));
+      color += vec3(0.16,0.04,0.48)                    // dark indigo accent
+               *sin(2.*u_scroll+1.5);
+      color = color*noise;
+
+      gl_FragColor = vec4(color, noise*0.9);
+    }
+  `;
+
+  function compileShader(type, src){
+    const sh = gl.createShader(type);
+    gl.shaderSource(sh, src);
+    gl.compileShader(sh);
+    if(!gl.getShaderParameter(sh, gl.COMPILE_STATUS)){
+      console.warn('Shader compile error:', gl.getShaderInfoLog(sh));
+      gl.deleteShader(sh); return null;
+    }
+    return sh;
+  }
+
+  const vs = compileShader(gl.VERTEX_SHADER,   vsSource);
+  const fs = compileShader(gl.FRAGMENT_SHADER, fsSource);
+  const prog = gl.createProgram();
+  gl.attachShader(prog,vs); gl.attachShader(prog,fs);
+  gl.linkProgram(prog);
+  if(!gl.getProgramParameter(prog,gl.LINK_STATUS)){
+    console.warn('Program link error:', gl.getProgramInfoLog(prog));
+    canvas.style.display='none'; return;
+  }
+  gl.useProgram(prog);
+
+  // Full-screen quad
+  const buf = gl.createBuffer();
+  gl.bindBuffer(gl.ARRAY_BUFFER, buf);
+  gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1,-1,1,-1,-1,1,1,1]), gl.STATIC_DRAW);
+  const aPos = gl.getAttribLocation(prog,'a_position');
+  gl.enableVertexAttribArray(aPos);
+  gl.vertexAttribPointer(aPos,2,gl.FLOAT,false,0,0);
+
+  // Enable alpha blending so transparent areas show body bg
+  gl.enable(gl.BLEND);
+  gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
+
+  const uTime    = gl.getUniformLocation(prog,'u_time');
+  const uRatio   = gl.getUniformLocation(prog,'u_ratio');
+  const uPointer = gl.getUniformLocation(prog,'u_pointer');
+  const uScroll  = gl.getUniformLocation(prog,'u_scroll');
+
+  const dpr = Math.min(window.devicePixelRatio||1,2);
+
+  function resize(){
+    canvas.width  = window.innerWidth  * dpr;
+    canvas.height = window.innerHeight * dpr;
+    gl.viewport(0,0,canvas.width,canvas.height);
+    gl.uniform1f(uRatio, canvas.width/canvas.height);
+  }
+  resize();
+  window.addEventListener('resize', resize);
+
+  // Smoothed pointer
+  const ptr = {x:.5,y:.5,tx:.5,ty:.5};
+  window.addEventListener('pointermove',e=>{
+    ptr.tx = e.clientX/window.innerWidth;
+    ptr.ty = e.clientY/window.innerHeight;
+  });
+  window.addEventListener('touchmove',e=>{
+    if(e.touches[0]){
+      ptr.tx = e.touches[0].clientX/window.innerWidth;
+      ptr.ty = e.touches[0].clientY/window.innerHeight;
+    }
+  },{passive:true});
+
+  function render(){
+    ptr.x += (ptr.tx-ptr.x)*0.08;
+    ptr.y += (ptr.ty-ptr.y)*0.08;
+    gl.uniform1f(uTime,    performance.now());
+    gl.uniform2f(uPointer, ptr.x, 1-ptr.y);
+    gl.uniform1f(uScroll,  window.pageYOffset/(2*window.innerHeight));
+    gl.drawArrays(gl.TRIANGLE_STRIP,0,4);
+    requestAnimationFrame(render);
+  }
+  render();
+  } catch(e){ try{ document.getElementById('neuro-bg').style.display='none'; }catch(_){} }
+})();
+</script>
+</body>
+</html>
