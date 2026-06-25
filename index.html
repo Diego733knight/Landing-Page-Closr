@@ -10,17 +10,17 @@
 <meta property="og:type" content="website">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Geist:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
   :root {
-    --black: #0F172A;
-    --violet: #8B5CF6;
-    --violet-light: #A78BFA;
-    --violet-dark: #6D28D9;
-    --green: #7BFF00;
+    --black: #050810;
+    --violet: #6C47FF;
+    --violet-light: #7C5CFF;
+    --violet-dark: #1A0F2E;
+    --green: #00E5A8;
     --white: #FFFFFF;
-    --gray: #B0BDD0;
-    --gray-dark: #1E293B;
+    --gray: #94A3B8;
+    --gray-dark: #1e2333;
     --gray-mid: #334155;
   }
 
@@ -28,8 +28,8 @@
   html { scroll-behavior: smooth; }
 
   body {
-    font-family: 'DM Sans', sans-serif;
-    background: #000000;
+    font-family: 'Geist', sans-serif;
+    background: #050810;
     color: var(--white);
     overflow-x: hidden;
     line-height: 1.6;
@@ -54,8 +54,8 @@
     pointer-events: none;
     z-index: 0;
   }
-  .orb-violet { background: rgba(139,92,246,0.22); }
-  .orb-sm { background: rgba(139,92,246,0.12); }
+  .orb-violet { background: rgba(108,71,255,0.22); }
+  .orb-sm { background: rgba(108,71,255,0.12); }
 
   /* BUTTONS */
   .btn-primary {
@@ -66,7 +66,7 @@
     cursor: pointer; transition: all 200ms ease; text-decoration: none;
     position: relative; overflow: hidden;
   }
-  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(139,92,246,0.5); background: #7C3AED; }
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(108,71,255,0.5); background: #5a35e0; }
 
   .btn-secondary {
     display: inline-flex; align-items: center; gap: 8px;
@@ -75,7 +75,7 @@
     padding: 13px 28px; border-radius: 12px; border: 1.5px solid rgba(255,255,255,0.18);
     cursor: pointer; transition: all 200ms ease; text-decoration: none;
   }
-  .btn-secondary:hover { border-color: var(--violet); background: rgba(139,92,246,0.1); transform: translateY(-2px); }
+  .btn-secondary:hover { border-color: var(--violet); background: rgba(108,71,255,0.1); transform: translateY(-2px); }
 
   .glass {
     background: rgba(255,255,255,0.07);
@@ -87,9 +87,9 @@
 
   .badge {
     display: inline-flex; align-items: center; gap: 8px;
-    background: rgba(139,92,246,0.12); border: 1px solid rgba(139,92,246,0.3);
-    color: var(--violet-light); font-family: 'Space Grotesk', sans-serif;
-    font-size: 0.75rem; font-weight: 600; letter-spacing: 0.06em;
+    background: rgba(108,71,255,0.12); border: 1px solid rgba(108,71,255,0.3);
+    color: var(--violet-light); font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem; font-weight: 500; letter-spacing: 0.08em;
     text-transform: uppercase; padding: 6px 14px; border-radius: 100px;
   }
   .badge-dot {
@@ -107,13 +107,14 @@
     content: ''; position: absolute; left: 0; right: 0;
     height: 120px; pointer-events: none; z-index: 10;
   }
-  section::before { top: 0;    background: linear-gradient(to bottom, #000000 0%, transparent 100%); }
-  section::after  { bottom: 0; background: linear-gradient(to top,    #000000 0%, transparent 100%); }
+  section::before { top: 0;    background: linear-gradient(to bottom, #050810 0%, transparent 100%); }
+  section::after  { bottom: 0; background: linear-gradient(to top,    #050810 0%, transparent 100%); }
 
   /* SECTION TYPOGRAPHY */
   .section-label {
-    font-size: 0.75rem; font-weight: 600; letter-spacing: 0.1em;
-    text-transform: uppercase; color: var(--violet-light); margin-bottom: 16px;
+    font-size: 0.7rem; font-weight: 500; letter-spacing: 0.14em;
+    text-transform: uppercase; color: var(--violet); margin-bottom: 16px;
+    font-family: 'JetBrains Mono', monospace;
   }
   .section-title {
     font-size: clamp(2rem,4vw,3rem); letter-spacing: -0.025em; margin-bottom: 20px;
@@ -135,11 +136,14 @@
   }
 
   .nav-logo {
-    font-family: 'Space Grotesk', sans-serif; font-size: 1.65rem; font-weight: 700;
-    color: var(--white); text-decoration: none; letter-spacing: -0.04em;
-    text-shadow: 0 0 28px rgba(139,92,246,0.25);
+    display: flex; align-items: center; gap: 10px;
+    text-decoration: none;
   }
-  .nav-logo span { color: var(--violet); text-shadow: 0 0 16px rgba(139,92,246,0.7); }
+  .nav-ghost-svg { width: 22px; height: auto; flex-shrink: 0; display: block; }
+  .nav-wordmark-img {
+    height: 30px; width: auto; display: block;
+    filter: brightness(0) invert(1);
+  }
 
   .nav-links { display: flex; align-items: center; gap: 28px; list-style: none; }
   .nav-links a { color: var(--gray); text-decoration: none; font-size: 0.875rem; font-weight: 500; transition: color 200ms; }
@@ -150,8 +154,9 @@
     font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 0.875rem;
     padding: 10px 20px; border-radius: 10px; border: none; cursor: pointer;
     text-decoration: none; transition: all 200ms;
+    box-shadow: 0 0 20px rgba(108,71,255,0.35);
   }
-  .nav-cta:hover { background: var(--violet-dark); transform: translateY(-1px); }
+  .nav-cta:hover { background: #5a35e0; transform: translateY(-1px); box-shadow: 0 4px 24px rgba(108,71,255,0.5); }
 
   .nav-mobile-btn { display: none; background: none; border: none; cursor: pointer; color: var(--white); padding: 4px; }
 
@@ -194,19 +199,20 @@
   .wa-phone {
     width: 270px; background: #111B21; border-radius: 30px;
     padding: 20px 16px; position: relative; z-index: 2;
-    box-shadow: 0 40px 90px rgba(0,0,0,0.6), 0 0 0 1px rgba(255,255,255,0.06), 0 0 50px rgba(139,92,246,0.18);
+    box-shadow: 0 40px 90px rgba(0,0,0,0.6), 0 0 0 1px rgba(255,255,255,0.06), 0 0 50px rgba(108,71,255,0.18);
   }
   .wa-header {
     display: flex; align-items: center; gap: 10px;
     padding-bottom: 12px; border-bottom: 1px solid rgba(255,255,255,0.06); margin-bottom: 14px;
   }
   .wa-av {
-    width: 34px; height: 34px; border-radius: 50%;
-    background: linear-gradient(135deg,#A78BFA,#6D28D9);
+    width: 38px; height: 38px; border-radius: 50%;
+    background: linear-gradient(135deg,#7C5CFF,#1A0F2E);
     display: flex; align-items: center; justify-content: center;
-    flex-shrink: 0; overflow: hidden; padding: 2px;
+    flex-shrink: 0; overflow: hidden; padding: 0;
   }
   .wa-av svg { width: 100%; height: 100%; }
+  .wa-av img { width: 128%; height: 128%; object-fit: contain; display: block; }
   .wa-name { font-size: 0.82rem; font-weight: 600; color: #E9EDEF; }
   .wa-status { font-size: 0.65rem; color: var(--green); }
   .wa-sdot { display: inline-block; width: 5px; height: 5px; border-radius: 50%; background: var(--green); margin-right: 3px; }
@@ -219,47 +225,47 @@
   }
   .wa-msg.show { opacity: 1; transform: translateY(0); }
   .wa-msg.in { background: #202C33; color: #E9EDEF; align-self: flex-start; border-bottom-left-radius: 4px; }
-  .wa-msg.out { background: rgba(139,92,246,0.22); border: 1px solid rgba(139,92,246,0.3); color: #E9EDEF; align-self: flex-end; border-bottom-right-radius: 4px; }
+  .wa-msg.out { background: rgba(108,71,255,0.22); border: 1px solid rgba(108,71,255,0.3); color: #E9EDEF; align-self: flex-end; border-bottom-right-radius: 4px; }
   .wa-time { font-size: 0.62rem; color: rgba(255,255,255,0.3); margin-top: 3px; text-align: right; }
 
   .wa-typing {
-    display: flex; align-items: center; gap: 4px;
+    display: none; align-items: center; gap: 4px;
     padding: 9px 12px; background: #202C33; border-radius: 12px; border-bottom-left-radius: 4px;
     align-self: flex-start; width: fit-content; opacity: 0; transition: opacity 300ms;
   }
-  .wa-typing.show { opacity: 1; }
+  .wa-typing.show { display: flex; opacity: 1; }
   .wa-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--gray); animation: typing 1.2s infinite; }
   .wa-dot:nth-child(2){animation-delay:.2s} .wa-dot:nth-child(3){animation-delay:.4s}
   @keyframes typing { 0%,80%,100%{transform:scale(.8);opacity:.5} 40%{transform:scale(1);opacity:1} }
 
   .float-badge {
     position: absolute; border-radius: 12px; padding: 10px 14px;
-    background: #1a2540;
-    border: 1px solid rgba(123,255,0,0.3); z-index: 3;
+    background: rgba(14,20,40,0.92);
+    border: 1px solid rgba(0,229,168,0.3); z-index: 3;
     overflow: hidden; cursor: default;
     transition: border-color 250ms, box-shadow 250ms;
     will-change: transform; backface-visibility: hidden; transform: translateZ(0);
   }
-  .float-badge:hover { border-color: rgba(123,255,0,0.7); box-shadow: 0 0 18px rgba(123,255,0,0.15); }
+  .float-badge:hover { border-color: rgba(0,229,168,0.7); box-shadow: 0 0 18px rgba(0,229,168,0.15); }
   .float-badge2 {
     position: absolute; border-radius: 12px; padding: 10px 14px;
-    background: #1a2540;
-    border: 1px solid rgba(139,92,246,0.35); z-index: 3;
+    background: rgba(14,20,40,0.92);
+    border: 1px solid rgba(108,71,255,0.35); z-index: 3;
     overflow: hidden; cursor: default;
     transition: border-color 250ms, box-shadow 250ms;
     will-change: transform; backface-visibility: hidden; transform: translateZ(0);
   }
-  .float-badge2:hover { border-color: rgba(139,92,246,0.8); box-shadow: 0 0 18px rgba(139,92,246,0.2); }
+  .float-badge2:hover { border-color: rgba(108,71,255,0.8); box-shadow: 0 0 18px rgba(108,71,255,0.2); }
   .float-badge::before, .float-badge2::before {
     content:''; position:absolute; inset:0; border-radius:inherit; pointer-events:none;
     background: radial-gradient(180px circle at var(--glow-x,50%) var(--glow-y,50%),
-      rgba(139,92,246,0.35), rgba(139,92,246,0.08) 55%, transparent 75%);
+      rgba(108,71,255,0.35), rgba(108,71,255,0.08) 55%, transparent 75%);
     opacity:0; transition:opacity 250ms;
   }
   .float-badge:hover::before, .float-badge2:hover::before { opacity:1; }
   .float-badge .val { font-size: 1.2rem; font-weight: 700; color: var(--green); font-family:'Space Grotesk',sans-serif; }
   .float-badge2 .val { font-size: 1.2rem; font-weight: 700; color: var(--violet-light); font-family:'Space Grotesk',sans-serif; }
-  .float-badge .lbl, .float-badge2 .lbl { font-size: 0.65rem; color: var(--gray); }
+  .float-badge .lbl, .float-badge2 .lbl { font-size: 0.65rem; color: var(--gray); font-family:'JetBrains Mono',monospace; letter-spacing: 0.05em; }
 
   /* ============ PROBLEM ============ */
   #problem { padding: 120px 0; }
@@ -282,10 +288,10 @@
   /* Top accent line via ::after so ::before stays free for spotlight */
   .problem-card::after {
     content:''; position:absolute; top:0;left:0;right:0; height:1px;
-    background:linear-gradient(90deg,transparent,rgba(139,92,246,0.5),transparent);
+    background:linear-gradient(90deg,transparent,rgba(108,71,255,0.5),transparent);
     opacity:0; transition:opacity 280ms; pointer-events:none;
   }
-  .problem-card:hover { border-color:rgba(139,92,246,0.28); transform:translateY(-4px); }
+  .problem-card:hover { border-color:rgba(108,71,255,0.28); transform:translateY(-4px); }
   .problem-card:hover::after { opacity:1; }
 
   .p-icon {
@@ -309,7 +315,7 @@
   .problem-card .p-bottom-dot.warn { background:#FBBF24; }
 
   /* ============ SOLUTION ============ */
-  #solution { padding: 120px 0; background: linear-gradient(180deg,transparent 0%,rgba(139,92,246,0.04) 50%,transparent 100%); }
+  #solution { padding: 120px 0; background: linear-gradient(180deg,transparent 0%,rgba(108,71,255,0.04) 50%,transparent 100%); }
 
   .solution-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
 
@@ -318,10 +324,10 @@
     display:flex; align-items:flex-start; gap:14px; padding:18px;
     border-radius:14px; background:rgba(255,255,255,0.055); border:1px solid rgba(255,255,255,0.12); transition:all 250ms;
   }
-  .sol-item:hover { background:rgba(139,92,246,0.06); border-color:rgba(139,92,246,0.2); }
+  .sol-item:hover { background:rgba(108,71,255,0.06); border-color:rgba(108,71,255,0.2); }
   .sol-icon {
     width:38px; height:38px; border-radius:10px;
-    background:rgba(139,92,246,0.14); border:1px solid rgba(139,92,246,0.24);
+    background:rgba(108,71,255,0.14); border:1px solid rgba(108,71,255,0.24);
     display:flex; align-items:center; justify-content:center; flex-shrink:0; color:var(--violet-light);
   }
   .sol-item h4 { font-size:0.88rem; margin-bottom:3px; }
@@ -338,27 +344,25 @@
   }
 
   /* Character itself has NO animation, NO filter */
-  .plum-character {
-    position:relative; width:220px; height:276px;
-    cursor: default;
-  }
+  /* (dimensions set by .plum-img below) */
 
   /* Glow lives OUTSIDE the float wrapper — filter on animated subtree causes jitter */
   .plum-glow {
-    width:140px; height:24px;
-    background: rgba(139,92,246,0.4);
-    border-radius:50%; filter:blur(20px);
+    width:260px; height:30px;
+    background: rgba(108,71,255,0.42);
+    border-radius:50%; filter:blur(22px);
     pointer-events:none;
-    margin-top:-8px;
+    margin-top:-12px;
     flex-shrink:0;
   }
 
-  .plum-character svg { width:100%; height:100%; overflow:visible; }
+  .plum-character { position:relative; }
+  .plum-img { width:520px; max-width:100%; height:auto; display:block; object-fit:contain; filter: drop-shadow(0 18px 50px rgba(108,71,255,0.32)); }
 
   .plum-name-tag {
     display:flex; flex-direction:column; align-items:center; gap:3px;
   }
-  .plum-tag-label { font-size:0.65rem; color:var(--violet-light); font-weight:600; letter-spacing:.1em; text-transform:uppercase; }
+  .plum-tag-label { font-size:0.62rem; color:var(--violet); font-weight:500; letter-spacing:.12em; text-transform:uppercase; font-family:'JetBrains Mono',monospace; }
   .plum-tag-name {
     font-size:1.5rem; font-weight:700; font-family:'Space Grotesk',sans-serif;
     background:linear-gradient(135deg,var(--violet-light),#fff);
@@ -371,7 +375,7 @@
     background:rgba(255,255,255,0.025); border:1px solid rgba(255,255,255,0.07); text-align:center;
   }
   .ai-stat .v { font-size:1.1rem; font-weight:700; font-family:'Space Grotesk',sans-serif; color:var(--violet-light); }
-  .ai-stat .l { font-size:0.62rem; color:var(--gray); margin-top:2px; }
+  .ai-stat .l { font-size:0.62rem; color:var(--gray); margin-top:2px; font-family:'JetBrains Mono',monospace; letter-spacing:0.05em; }
 
   /* ============ DEMO ============ */
   #demo { padding: 120px 0; }
@@ -379,7 +383,7 @@
   .demo-wrap { display:grid; grid-template-columns:1fr 1fr; gap:60px; align-items:center; }
   .demo-phone {
     width:300px; margin:0 auto; background:#111B21; border-radius:30px;
-    padding:22px 16px; box-shadow:0 40px 90px rgba(0,0,0,0.5),0 0 50px rgba(139,92,246,0.14);
+    padding:22px 16px; box-shadow:0 40px 90px rgba(0,0,0,0.5),0 0 50px rgba(108,71,255,0.14);
   }
 
   .demo-steps { display:flex; flex-direction:column; gap:16px; }
@@ -388,10 +392,10 @@
     border:1px solid rgba(255,255,255,0.12); background:rgba(255,255,255,0.055); transition:all 280ms;
     position:relative; overflow:hidden;
   }
-  .demo-step.active { border-color:rgba(139,92,246,0.4); background:rgba(139,92,246,0.08); }
+  .demo-step.active { border-color:rgba(108,71,255,0.4); background:rgba(108,71,255,0.08); }
   .dsn {
     width:30px; height:30px; border-radius:50%;
-    background:rgba(139,92,246,0.14); border:1px solid rgba(139,92,246,0.28);
+    background:rgba(108,71,255,0.14); border:1px solid rgba(108,71,255,0.28);
     display:flex; align-items:center; justify-content:center;
     font-size:0.75rem; font-weight:700; color:var(--violet-light);
     flex-shrink:0; font-family:'Space Grotesk',sans-serif;
@@ -401,12 +405,12 @@
   .demo-step p { font-size:0.78rem; color:var(--gray); line-height:1.55; }
   .demo-result {
     margin-top:8px; padding:10px 14px; border-radius:9px;
-    background:rgba(123,255,0,0.07); border:1px solid rgba(123,255,0,0.2);
+    background:rgba(0,229,168,0.07); border:1px solid rgba(0,229,168,0.2);
     font-size:0.76rem; color:var(--green); font-weight:600;
   }
 
   /* ============ FEATURES ============ */
-  #features { padding: 120px 0; background: linear-gradient(180deg,transparent 0%,rgba(139,92,246,0.04) 50%,transparent 100%); }
+  #features { padding: 120px 0; background: linear-gradient(180deg,transparent 0%,rgba(108,71,255,0.04) 50%,transparent 100%); }
 
   .features-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:18px; margin-top:64px; }
   .feature-card {
@@ -424,7 +428,7 @@
   .demo-step::before,
   .sol-item::before {
     content:''; position:absolute; inset:0; border-radius:inherit; pointer-events:none;
-    background: radial-gradient(320px circle at var(--glow-x,50%) var(--glow-y,50%), rgba(139,92,246,0.26), rgba(139,92,246,0.06) 55%, transparent 75%);
+    background: radial-gradient(320px circle at var(--glow-x,50%) var(--glow-y,50%), rgba(108,71,255,0.26), rgba(108,71,255,0.06) 55%, transparent 75%);
     opacity:0; transition:opacity 250ms;
   }
   .feature-card:hover::before,
@@ -434,14 +438,14 @@
   .metric-card:hover::before,
   .demo-step:hover::before,
   .sol-item:hover::before { opacity:1; }
-  .feature-card:hover { border-color:rgba(139,92,246,0.3); transform:translateY(-5px); box-shadow:0 20px 50px rgba(0,0,0,0.35); }
+  .feature-card:hover { border-color:rgba(108,71,255,0.3); transform:translateY(-5px); box-shadow:0 20px 50px rgba(0,0,0,0.35); }
   .f-icon {
     width:50px; height:50px; border-radius:13px;
-    background:rgba(139,92,246,0.11); border:1px solid rgba(139,92,246,0.2);
+    background:rgba(108,71,255,0.11); border:1px solid rgba(108,71,255,0.2);
     display:flex; align-items:center; justify-content:center;
     margin-bottom:18px; color:var(--violet-light); transition:all 280ms;
   }
-  .feature-card:hover .f-icon { background:rgba(139,92,246,0.2); transform:scale(1.06); }
+  .feature-card:hover .f-icon { background:rgba(108,71,255,0.2); transform:scale(1.06); }
   .feature-card h3 { font-size:1.05rem; margin-bottom:10px; }
   .feature-card p { font-size:0.84rem; color:var(--gray); line-height:1.65; }
 
@@ -470,25 +474,25 @@
   .metric-desc { font-size:0.8rem; color:var(--gray); line-height:1.55; }
 
   /* ============ HOW IT WORKS ============ */
-  #how { padding: 120px 0; background: linear-gradient(180deg,transparent 0%,rgba(139,92,246,0.04) 50%,transparent 100%); }
+  #how { padding: 120px 0; background: linear-gradient(180deg,transparent 0%,rgba(108,71,255,0.04) 50%,transparent 100%); }
 
   .steps-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:28px; margin-top:64px; position:relative; }
   .steps-grid::before {
     content:''; position:absolute; top:42px; left:calc(16.67%+20px); right:calc(16.67%+20px);
-    height:1px; background:linear-gradient(90deg,var(--violet),rgba(139,92,246,0.1),var(--violet)); z-index:0;
+    height:1px; background:linear-gradient(90deg,var(--violet),rgba(108,71,255,0.1),var(--violet)); z-index:0;
   }
   .step-card {
     padding:34px 26px; border-radius:20px; text-align:center;
     background:rgba(255,255,255,0.055); border:1px solid rgba(255,255,255,0.12); transition:all 280ms;
   }
-  .step-card:hover { border-color:rgba(139,92,246,0.3); transform:translateY(-4px); }
+  .step-card:hover { border-color:rgba(108,71,255,0.3); transform:translateY(-4px); }
   .step-num {
     width:54px; height:54px; border-radius:50%;
-    background:rgba(139,92,246,0.14); border:2px solid var(--violet);
+    background:rgba(108,71,255,0.14); border:2px solid var(--violet);
     display:flex; align-items:center; justify-content:center;
     font-size:1.2rem; font-weight:700; font-family:'Space Grotesk',sans-serif;
     color:var(--violet-light); margin:0 auto 22px; position:relative; z-index:1;
-    box-shadow:0 0 20px rgba(139,92,246,0.28);
+    box-shadow:0 0 20px rgba(108,71,255,0.28);
   }
   .step-card h3 { font-size:1.05rem; margin-bottom:10px; }
   .step-card p { font-size:0.84rem; color:var(--gray); line-height:1.65; }
@@ -501,10 +505,10 @@
     padding:30px 26px; border-radius:20px;
     background:rgba(255,255,255,0.055); border:1px solid rgba(255,255,255,0.12); transition:all 280ms; position:relative;
   }
-  .testi-card:hover { border-color:rgba(139,92,246,0.2); transform:translateY(-4px); }
+  .testi-card:hover { border-color:rgba(108,71,255,0.2); transform:translateY(-4px); }
   .testi-metric {
     position:absolute; top:22px; right:22px;
-    background:rgba(123,255,0,0.07); border:1px solid rgba(123,255,0,0.2);
+    background:rgba(0,229,168,0.07); border:1px solid rgba(0,229,168,0.2);
     border-radius:8px; padding:5px 9px; font-size:0.72rem; color:var(--green);
     font-weight:700; font-family:'Space Grotesk',sans-serif;
   }
@@ -521,15 +525,15 @@
   .testi-role { font-size:0.72rem; color:var(--gray); }
 
   /* ============ FAQ ============ */
-  #faq { padding: 120px 0; background: linear-gradient(180deg,transparent 0%,rgba(139,92,246,0.03) 50%,transparent 100%); }
+  #faq { padding: 120px 0; background: linear-gradient(180deg,transparent 0%,rgba(108,71,255,0.03) 50%,transparent 100%); }
 
   .faq-list { max-width:780px; margin:64px auto 0; display:flex; flex-direction:column; gap:10px; }
   .faq-item {
     border-radius:14px; background:rgba(255,255,255,0.055); border:1px solid rgba(255,255,255,0.12);
     overflow:hidden; transition:border-color 200ms;
   }
-  .faq-item:hover { border-color:rgba(139,92,246,0.2); }
-  .faq-item.open { border-color:rgba(139,92,246,0.3); }
+  .faq-item:hover { border-color:rgba(108,71,255,0.2); }
+  .faq-item.open { border-color:rgba(108,71,255,0.3); }
   .faq-q {
     width:100%; display:flex; align-items:center; justify-content:space-between;
     padding:18px 22px; background:none; border:none; cursor:pointer; color:var(--white);
@@ -538,7 +542,7 @@
   .faq-q:hover { color:var(--violet-light); }
   .faq-ic {
     width:26px; height:26px; border-radius:50%;
-    background:rgba(139,92,246,0.1); border:1px solid rgba(139,92,246,0.2);
+    background:rgba(108,71,255,0.1); border:1px solid rgba(108,71,255,0.2);
     display:flex; align-items:center; justify-content:center; flex-shrink:0; transition:all 280ms; color:var(--violet-light);
   }
   .faq-item.open .faq-ic { background:var(--violet); border-color:var(--violet); transform:rotate(45deg); }
@@ -584,10 +588,10 @@
   .form-input, .form-select {
     background:rgba(255,255,255,0.045); border:1px solid rgba(255,255,255,0.1);
     border-radius:10px; padding:11px 14px; color:var(--white);
-    font-family:'DM Sans',sans-serif; font-size:0.88rem; outline:none; transition:all 200ms; width:100%; appearance:none;
+    font-family:'Geist',sans-serif; font-size:0.88rem; outline:none; transition:all 200ms; width:100%; appearance:none;
   }
   .form-input::placeholder { color:rgba(255,255,255,0.28); }
-  .form-input:focus,.form-select:focus { border-color:var(--violet); background:rgba(139,92,246,0.07); box-shadow:0 0 0 3px rgba(139,92,246,0.14); }
+  .form-input:focus,.form-select:focus { border-color:var(--violet); background:rgba(108,71,255,0.07); box-shadow:0 0 0 3px rgba(108,71,255,0.14); }
   .form-input.err { border-color:#F87171; }
   .form-select {
     background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='11' height='11' viewBox='0 0 24 24' fill='none' stroke='%2394A3B8' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
@@ -599,7 +603,7 @@
     width:100%; padding:15px; background:var(--violet); color:white; border:none; border-radius:12px;
     font-family:'Space Grotesk',sans-serif; font-size:0.975rem; font-weight:700; cursor:pointer; transition:all 200ms; margin-top:6px;
   }
-  .form-submit:hover { background:var(--violet-dark); transform:translateY(-2px); box-shadow:0 8px 28px rgba(139,92,246,0.4); }
+  .form-submit:hover { background:var(--violet-dark); transform:translateY(-2px); box-shadow:0 8px 28px rgba(108,71,255,0.4); }
   .form-submit:disabled { opacity:0.65; cursor:not-allowed; transform:none; }
   .form-privacy { text-align:center; font-size:0.72rem; color:rgba(255,255,255,0.3); margin-top:10px; }
 
@@ -611,7 +615,7 @@
   .form-success.show { display:block; }
   .success-icon {
     width:60px; height:60px; border-radius:50%;
-    background:rgba(123,255,0,0.1); border:2px solid rgba(123,255,0,0.3);
+    background:rgba(0,229,168,0.1); border:2px solid rgba(0,229,168,0.3);
     display:flex; align-items:center; justify-content:center; margin:0 auto 18px; color:var(--green);
   }
   .form-success h3 { font-size:1.2rem; margin-bottom:10px; }
@@ -621,22 +625,21 @@
   footer {
     position: relative;
     padding: 60px 0 36px;
-    background: linear-gradient(180deg, rgba(139,92,246,0.05) 0%, rgba(109,40,217,0.08) 100%);
+    background: linear-gradient(180deg, rgba(108,71,255,0.05) 0%, rgba(108,71,255,0.08) 100%);
     border-top: 1px solid transparent;
   }
   /* Glowing violet separator line */
   footer::before {
     content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px;
-    background: linear-gradient(90deg, transparent 0%, rgba(139,92,246,0.7) 30%, rgba(167,139,250,0.9) 50%, rgba(139,92,246,0.7) 70%, transparent 100%);
-    box-shadow: 0 0 20px rgba(139,92,246,0.4);
+    background: linear-gradient(90deg, transparent 0%, rgba(108,71,255,0.7) 30%, rgba(124,92,255,0.9) 50%, rgba(108,71,255,0.7) 70%, transparent 100%);
+    box-shadow: 0 0 20px rgba(108,71,255,0.4);
   }
   .footer-inner { display:flex; align-items:center; justify-content:space-between; margin-bottom:32px; }
   .footer-logo {
-    font-family:'Space Grotesk',sans-serif; font-size:1.5rem; font-weight:700;
-    color:var(--white); text-decoration:none; letter-spacing:-0.04em;
-    text-shadow: 0 0 28px rgba(139,92,246,0.25);
+    display:flex; align-items:center; gap:10px; text-decoration:none;
   }
-  .footer-logo span { color:var(--violet); text-shadow: 0 0 16px rgba(139,92,246,0.7); }
+  .footer-wordmark { height:22px; width:auto; filter:brightness(0) invert(1); opacity:0.85; }
+  .footer-ghost-svg { width:20px; height:auto; display:block; opacity:0.85; }
   .footer-links { display:flex; gap:28px; list-style:none; }
   .footer-links a { color:rgba(255,255,255,0.55); text-decoration:none; font-size:0.85rem; font-weight:500; transition:color 200ms; }
   .footer-links a:hover { color:var(--white); }
@@ -702,7 +705,9 @@
 
 <!-- NAVBAR -->
 <nav id="navbar" role="navigation" aria-label="Navegación principal">
-  <a href="#" class="nav-logo" aria-label="Closr inicio">Closr<span>.</span></a>
+  <a href="#" class="nav-logo" aria-label="Closr inicio">
+    <img src="assets/logo-white.svg" class="nav-wordmark-img" alt="closr">
+  </a>
   <ul class="nav-links">
     <li><a href="#problem">El Problema</a></li>
     <li><a href="#features">Funciones</a></li>
@@ -757,7 +762,7 @@
         </div>
         <div class="wa-phone">
           <div class="wa-header">
-            <div class="wa-av"><svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><defs><radialGradient id="miniG1" cx="40%" cy="30%" r="70%"><stop offset="0%" stop-color="#C4B5FD"/><stop offset="55%" stop-color="#8B5CF6"/><stop offset="100%" stop-color="#1E1B4B"/></radialGradient></defs><circle cx="50" cy="50" r="50" fill="url(#miniG1)"/><!-- left eye --><ellipse cx="34" cy="50" rx="11" ry="14" fill="white"/><ellipse cx="34" cy="51" rx="9" ry="12" fill="#0D0620"/><ellipse cx="29" cy="44" rx="4" ry="5" fill="white" opacity="0.88"/><circle cx="31" cy="42" r="1.8" fill="white"/><!-- right eye --><ellipse cx="66" cy="50" rx="11" ry="14" fill="white"/><ellipse cx="66" cy="51" rx="9" ry="12" fill="#0D0620"/><ellipse cx="61" cy="44" rx="4" ry="5" fill="white" opacity="0.88"/><circle cx="63" cy="42" r="1.8" fill="white"/></svg></div>
+            <div class="wa-av"><img src="assets/plum-avatar.png" alt="Plum"></div>
             <div>
               <div class="wa-name">Plum</div>
               <div class="wa-status"><span class="wa-sdot"></span>Activo ahora</div>
@@ -766,7 +771,7 @@
           <div class="wa-msgs" id="hero-msgs">
             <div class="wa-msg in" id="hm1">Hola, vi su publicación. ¿Cuánto cuesta más o menos?<div class="wa-time">9:14 AM</div></div>
             <div class="wa-typing" id="hm-t"><div class="wa-dot"></div><div class="wa-dot"></div><div class="wa-dot"></div></div>
-            <div class="wa-msg out" id="hm2">Hola, desde $50 depende del plan. ¿Qué tipo de negocio tienes?<div class="wa-time">9:14 AM ✓✓</div></div>
+            <div class="wa-msg out" id="hm2">Hola, desde $30 depende del plan. ¿Qué tipo de negocio tienes?<div class="wa-time">9:14 AM ✓✓</div></div>
             <div class="wa-msg out" id="hm3">Hola, te escribo para ver si pudiste revisar lo que te mandé.<div class="wa-time">11:32 AM ✓✓</div></div>
             <div class="wa-msg in" id="hm4">Sí perdona, andaba en una reunión. Sí me interesa.<div class="wa-time">11:35 AM</div></div>
             <div class="wa-msg out" id="hm5">No hay problema. ¿Puedes hoy a las 3 para hablar un momento?<div class="wa-time">11:35 AM ✓✓</div></div>
@@ -850,69 +855,9 @@
     <div class="solution-inner">
       <div class="plum-wrap reveal">
         <div class="plum-float-wrapper">
-        <div class="plum-character" id="plum">
-          <svg xmlns="http://www.w3.org/2000/svg" width="231" height="289" viewBox="0 0 231 289">
-            <defs>
-              <clipPath id="plumClip">
-                <path d="M230.809 115.385V249.411C230.809 269.923 214.985 287.282 194.495 288.411C184.544 288.949 175.364 285.718 168.26 280C159.746 273.154 147.769 273.461 139.178 280.23C132.638 285.384 124.381 288.462 115.379 288.462C106.377 288.462 98.1451 285.384 91.6055 280.23C82.912 273.385 70.9353 273.385 62.2415 280.23C55.7532 285.334 47.598 288.411 38.7246 288.462C17.4132 288.615 0 270.667 0 249.359V115.385C0 51.6667 51.6756 0 115.404 0C179.134 0 230.809 51.6667 230.809 115.385Z"/>
-              </clipPath>
-              <!-- Animated mesh gradient — brand violet palette, flowing shader look -->
-              <radialGradient id="pg1" cx="38%" cy="28%" r="65%">
-                <animate attributeName="cx" values="38%;62%;25%;55%;38%" dur="9s" repeatCount="indefinite"/>
-                <animate attributeName="cy" values="28%;55%;72%;18%;28%" dur="11s" repeatCount="indefinite"/>
-                <stop offset="0%" stop-color="#EDE9FE"/>
-                <stop offset="50%" stop-color="#8B5CF6"/>
-                <stop offset="100%" stop-color="#1E1B4B"/>
-              </radialGradient>
-              <radialGradient id="pg2" cx="78%" cy="60%" r="55%">
-                <animate attributeName="cx" values="78%;30%;65%;80%;78%" dur="7s" repeatCount="indefinite"/>
-                <animate attributeName="cy" values="60%;20%;75%;45%;60%" dur="13s" repeatCount="indefinite"/>
-                <stop offset="0%" stop-color="#6D28D9" stop-opacity="0.85"/>
-                <stop offset="100%" stop-color="#1E1B4B" stop-opacity="0"/>
-              </radialGradient>
-              <radialGradient id="pg3" cx="20%" cy="82%" r="50%">
-                <animate attributeName="cx" values="20%;70%;15%;50%;20%" dur="11s" repeatCount="indefinite"/>
-                <animate attributeName="cy" values="82%;30%;60%;85%;82%" dur="8s" repeatCount="indefinite"/>
-                <stop offset="0%" stop-color="#A78BFA" stop-opacity="0.7"/>
-                <stop offset="100%" stop-color="#1E1B4B" stop-opacity="0"/>
-              </radialGradient>
-              <radialGradient id="pg4" cx="55%" cy="15%" r="45%">
-                <animate attributeName="cx" values="55%;25%;70%;40%;55%" dur="10s" repeatCount="indefinite"/>
-                <animate attributeName="cy" values="15%;65%;30%;80%;15%" dur="6s" repeatCount="indefinite"/>
-                <stop offset="0%" stop-color="#ffffff" stop-opacity="0.3"/>
-                <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
-              </radialGradient>
-            </defs>
-
-            <!-- Mesh gradient body -->
-            <g clip-path="url(#plumClip)">
-              <rect width="231" height="289" fill="#1E1B4B"/>
-              <rect width="231" height="289" fill="url(#pg1)"/>
-              <rect width="231" height="289" fill="url(#pg2)"/>
-              <rect width="231" height="289" fill="url(#pg3)"/>
-              <rect width="231" height="289" fill="url(#pg4)"/>
-            </g>
-
-            <!-- Eyes — groups for transform tracking, individual ellipses for blink -->
-            <g id="plum-eye-gl">
-              <!-- outer white ring gives contrast border -->
-              <ellipse cx="82" cy="126" rx="30" ry="38" fill="white"/>
-              <!-- dark iris -->
-              <ellipse id="plum-eye-l" cx="82" cy="128" rx="25" ry="33" fill="#0D0620"/>
-              <!-- large soft gleam upper-left -->
-              <ellipse cx="71" cy="112" rx="11" ry="13" fill="white" opacity="0.88"/>
-              <!-- tiny bright sparkle -->
-              <circle cx="77" cy="107" r="4.5" fill="white"/>
-            </g>
-            <g id="plum-eye-gr">
-              <ellipse cx="149" cy="126" rx="30" ry="38" fill="white"/>
-              <ellipse id="plum-eye-r" cx="149" cy="128" rx="25" ry="33" fill="#0D0620"/>
-              <ellipse cx="138" cy="112" rx="11" ry="13" fill="white" opacity="0.88"/>
-              <circle cx="144" cy="107" r="4.5" fill="white"/>
-            </g>
-
-          </svg>
-        </div>
+          <div class="plum-character" id="plum">
+            <img src="assets/plum-wink.png" alt="Plum — Tu agente IA de ventas" class="plum-img" loading="eager">
+          </div>
         </div><!-- end float-wrapper -->
         <div class="plum-glow"></div>
         <div class="plum-name-tag">
@@ -960,7 +905,7 @@
     <div class="demo-wrap">
       <div class="demo-phone reveal">
         <div class="wa-header">
-          <div class="wa-av"><svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><defs><radialGradient id="miniG2" cx="40%" cy="30%" r="70%"><stop offset="0%" stop-color="#C4B5FD"/><stop offset="55%" stop-color="#8B5CF6"/><stop offset="100%" stop-color="#1E1B4B"/></radialGradient></defs><circle cx="50" cy="50" r="50" fill="url(#miniG2)"/><!-- left eye --><ellipse cx="34" cy="50" rx="11" ry="14" fill="white"/><ellipse cx="34" cy="51" rx="9" ry="12" fill="#0D0620"/><ellipse cx="29" cy="44" rx="4" ry="5" fill="white" opacity="0.88"/><circle cx="31" cy="42" r="1.8" fill="white"/><!-- right eye --><ellipse cx="66" cy="50" rx="11" ry="14" fill="white"/><ellipse cx="66" cy="51" rx="9" ry="12" fill="#0D0620"/><ellipse cx="61" cy="44" rx="4" ry="5" fill="white" opacity="0.88"/><circle cx="63" cy="42" r="1.8" fill="white"/></svg></div>
+          <div class="wa-av"><img src="assets/plum-avatar.png" alt="Plum"></div>
           <div>
             <div class="wa-name">Plum</div>
             <div class="wa-status"><span class="wa-sdot"></span>Activo ahora</div>
@@ -969,13 +914,13 @@
         <div class="wa-msgs" id="demo-msgs">
           <div class="wa-msg in" id="dm1">Buenas, ¿cuánto sale más o menos?<div class="wa-time">2:15 PM</div></div>
           <div class="wa-typing" id="dm-t1"><div class="wa-dot"></div><div class="wa-dot"></div><div class="wa-dot"></div></div>
-          <div class="wa-msg out" id="dm2">Buenas, desde $50 depende del plan. ¿Qué tipo de negocio manejas?<div class="wa-time">2:15 PM ✓✓</div></div>
+          <div class="wa-msg out" id="dm2">Buenas, desde $30 depende del plan. ¿Qué tipo de negocio manejas?<div class="wa-time">2:15 PM ✓✓</div></div>
           <div class="wa-msg in" id="dm3" style="opacity:0.5;font-style:italic;color:#64748B;">— Visto, sin respuesta —<div class="wa-time">2:16 PM</div></div>
           <div class="wa-msg out" id="dm4">Hola, te escribo para ver si tuviste oportunidad de revisar mi mensaje.<div class="wa-time">Día siguiente 10:00 AM ✓✓</div></div>
           <div class="wa-msg in" id="dm5">Perdona, ayer estuve muy ocupado. Sí me interesa.<div class="wa-time">10:05 AM</div></div>
           <div class="wa-msg out" id="dm6">No hay problema. ¿Tienes un momento hoy para que te cuente cómo funciona?<div class="wa-time">10:05 AM ✓✓</div></div>
           <div class="wa-msg in" id="dm7">Sí, puedo a las 3.<div class="wa-time">10:06 AM</div></div>
-          <div class="wa-msg out" id="dm8" style="border-color:rgba(123,255,0,.4);">Perfecto, a las 3 entonces. Te hago un recordatorio un rato antes. ✅<div class="wa-time">10:06 AM ✓✓</div></div>
+          <div class="wa-msg out" id="dm8" style="border-color:rgba(0,229,168,.4);">Perfecto, a las 3 entonces. Te hago un recordatorio un rato antes. ✅<div class="wa-time">10:06 AM ✓✓</div></div>
         </div>
       </div>
       <div class="demo-steps reveal d2">
@@ -1339,7 +1284,9 @@
 <footer>
   <div class="container">
     <div class="footer-inner">
-      <a href="#" class="footer-logo">Closr<span>.</span></a>
+      <a href="#" class="footer-logo">
+        <img src="assets/logo-white.svg" class="footer-wordmark" alt="closr">
+      </a>
       <ul class="footer-links">
         <li><a href="#problem">El Problema</a></li>
         <li><a href="#features">Funciones</a></li>
@@ -1522,75 +1469,18 @@ document.getElementById('waitlist-form').addEventListener('submit',async functio
 document.querySelectorAll('.form-input,.form-select,.phone-num').forEach(el=>el.addEventListener('input',()=>el.classList.remove('err')));
 
 // ── UNIFIED rAF LOOP ────────────────────────────────────────────────────────
-// Drives: badge float, Plum float, smooth eye tracking, JS blink
-// No CSS animation anywhere — integer pixels only → zero jitter
+// Drives: Plum float animation
 (function(){
-  const b1    = document.querySelector('.float-badge');
-  const b2    = document.querySelector('.float-badge2');
   const plumW = document.querySelector('.plum-float-wrapper');
-  const eyeL  = document.getElementById('plum-eye-l');   // for blink ry
-  const eyeR  = document.getElementById('plum-eye-r');
-  const eyeGL = document.getElementById('plum-eye-gl');  // for transform tracking
-  const eyeGR = document.getElementById('plum-eye-gr');
-
-  const MAX  = 7;
-  let tEye = {x:0,y:0};        // target offset
-  let cEye = {x:0,y:0};        // current (lerped)
-  const LERP = 0.10;            // smoothing factor (lower = smoother/slower)
-
-  // Blink state
-  let blinkTimer = 0;
-  let nextBlink  = 3.2;         // seconds until next blink
-  let blinking   = false;
-  let blinkPhase = 0;           // 0→close, 1→open
-
-  document.addEventListener('mousemove', e => {
-    const plum = document.getElementById('plum');
-    if(!plum) return;
-    const r  = plum.getBoundingClientRect();
-    const cx = r.left + r.width  / 2;
-    const cy = r.top  + r.height / 2;
-    tEye.x = Math.max(-MAX, Math.min(MAX, (e.clientX - cx) * 0.07));
-    tEye.y = Math.max(-MAX, Math.min(MAX, (e.clientY - cy) * 0.07));
-  });
 
   function tick(ts){
-    const t  = ts / 1000;
-    const dt = 1/60;            // assume 60 fps; rAF gives us ~16ms
-
-    // ── Badges: STATIC — no movement
-    // (removed float — user prefers them still)
-
-    // ── Plum float — smooth float, no Math.round for GPU sub-pixel smoothing
-    if(plumW) plumW.style.transform = 'translate3d(0,' + (Math.sin(t*0.50)*7).toFixed(2) + 'px,0)';
-
-    // ── Eye lerp
-    cEye.x += (tEye.x - cEye.x) * LERP;
-    cEye.y += (tEye.y - cEye.y) * LERP;
-
-    // ── Blink logic
-    blinkTimer += dt;
-    let ryVal = 33;
-    if(!blinking && blinkTimer >= nextBlink){
-      blinking   = true;
-      blinkPhase = 0;
-      blinkTimer = 0;
-      nextBlink  = 2.8 + Math.random() * 3.5;
+    const t = ts / 1000;
+    if(plumW){
+      const y = Math.sin(t*0.55)*7;
+      const x = Math.sin(t*0.38)*2.5;
+      const rot = Math.sin(t*0.48)*1.0;
+      plumW.style.transform = 'translate3d(' + x.toFixed(2) + 'px,' + y.toFixed(2) + 'px,0) rotate(' + rot.toFixed(2) + 'deg)';
     }
-    if(blinking){
-      blinkPhase += dt;
-      if(blinkPhase < 0.07)       ryVal = Math.round(33 * (1 - blinkPhase/0.07));
-      else if(blinkPhase < 0.14)  ryVal = Math.round(33 * ((blinkPhase-0.07)/0.07));
-      else { ryVal = 33; blinking = false; }
-    }
-
-    // ── Apply to SVG eyes — groups move, individual ellipses handle blink
-    const tx = cEye.x.toFixed(2), ty = cEye.y.toFixed(2);
-    if(eyeGL) eyeGL.setAttribute('transform', `translate(${tx},${ty})`);
-    if(eyeGR) eyeGR.setAttribute('transform', `translate(${tx},${ty})`);
-    if(eyeL)  eyeL.setAttribute('ry', ryVal);
-    if(eyeR)  eyeR.setAttribute('ry', ryVal);
-
     requestAnimationFrame(tick);
   }
   requestAnimationFrame(tick);
@@ -1628,11 +1518,11 @@ document.querySelectorAll(
     y:  Math.random(),
     vx: (Math.random() - 0.5) * 0.00018,
     vy: (Math.random() - 0.5) * 0.00018,
-    r:  Math.random() * 1.2 + 0.4,
+    r:  Math.random() * 1.8 + 0.8,
     op: Math.random(),
     dir: Math.random() > 0.5 ? 1 : -1,
-    spd: 0.004 + Math.random() * 0.009,
-    col: Math.random() > 0.55 ? '#A78BFA' : '#ffffff',   // violet-light or white
+    spd: 0.005 + Math.random() * 0.012,
+    col: Math.random() > 0.55 ? '#6C47FF' : (Math.random() > 0.5 ? '#7C5CFF' : '#ffffff'),
   }));
 
   function draw(){
@@ -1649,9 +1539,9 @@ document.querySelectorAll(
       if(p.op <= 0){ p.op = 0; p.dir =  1; }
       // draw
       ctx.save();
-      ctx.globalAlpha = p.op * 0.75;
+      ctx.globalAlpha = p.op * 0.92;
       ctx.fillStyle   = p.col;
-      ctx.shadowBlur  = 5;
+      ctx.shadowBlur  = 12;
       ctx.shadowColor = p.col;
       ctx.beginPath();
       ctx.arc(p.x * W, p.y * H, p.r, 0, Math.PI * 2);
@@ -1683,7 +1573,7 @@ document.querySelectorAll(
     }
   `;
 
-  // Brand palette: #0F172A deep black, #8B5CF6 violet, #6D28D9 dark violet
+  // Brand palette: #050810 deep black, #6C47FF violet, #1A0F2E dark violet
   const fsSource = `
     precision mediump float;
     varying vec2 vUv;
@@ -1728,11 +1618,11 @@ document.querySelectorAll(
       noise *= (1.-length(vUv-.5));
 
       // Brand violet palette
-      vec3 color = vec3(0.545,0.361,0.965);           // #8B5CF6 primary violet
+      vec3 color = vec3(0.424,0.278,1.0);              // #6C47FF primary violet
       color = mix(color,
-        vec3(0.28,0.12,0.62),                          // #471F9E deep violet
+        vec3(0.1,0.06,0.35),                           // #1A0F59 deep violet
         0.35+0.18*sin(2.*u_scroll+1.2));
-      color += vec3(0.16,0.04,0.48)                    // dark indigo accent
+      color += vec3(0.12,0.04,0.42)                    // dark indigo accent
                *sin(2.*u_scroll+1.5);
       color = color*noise;
 
@@ -1818,3 +1708,4 @@ document.querySelectorAll(
 </script>
 </body>
 </html>
+
